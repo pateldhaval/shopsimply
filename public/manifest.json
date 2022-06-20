@@ -1,7 +1,7 @@
 {
-	"name": "My App",
-	"short_name": "MyApp",
-	"description": "My App Description",
+	"name": "Shop Simply",
+	"short_name": "ShopSimply",
+	"description": "Simple App for Shopping",
 	"start_url": "/",
 	"scope": "/",
 	"display": "standalone",
