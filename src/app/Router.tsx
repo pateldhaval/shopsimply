@@ -1,13 +1,19 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Dashboard from '@/pages/Dashboard';
+import Home from '@/pages/Home';
+import Reports from '@/pages/Reports';
 
-function Router() {
+import Layout from './Layout';
+
+const Router = () => {
 	return (
 		<Routes>
-			<Route path='/' element={<Dashboard />} />
+			<Route path='/' element={<Layout />}>
+				<Route index element={<Home />} />
+				<Route path='reports' element={<Reports />} />
+			</Route>
 		</Routes>
 	);
-}
+};
 
 export default Router;

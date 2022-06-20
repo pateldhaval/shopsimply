@@ -10,9 +10,13 @@ export const Counter: React.FC<Props> = (props) => {
 
 	return (
 		<>
-			<button type='button' onClick={() => setCount((count) => count + 1)}>
-				Count: {count}
-			</button>
+			<div className='p-20'>
+				<div className='container'>
+					<button type='button' onClick={() => setCount((count) => count + 1)}>
+						Count: {count}
+					</button>
+				</div>
+			</div>
 		</>
 	);
 };
