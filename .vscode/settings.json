@@ -1,0 +1,10 @@
+{
+	"editor.tabSize": 2,
+	"editor.formatOnSave": true,
+	"prettier.semi": true,
+	"prettier.useTabs": true,
+	"prettier.trailingComma": "none",
+	"prettier.singleQuote": true,
+	"prettier.jsxSingleQuote": true,
+	"importSorter.generalConfiguration.sortOnBeforeSave": true
+}
