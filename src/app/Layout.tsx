@@ -1,17 +1,16 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
 
 const Layout = () => {
 	return (
 		<div>
-			<header className='p-4 border-b space-x-2'>
-				<Link to='/'>Home</Link>
-				<Link to='/reports'>Reports</Link>
-				<Link to='/login'>Login</Link>
-			</header>
+			<Header />
 			<main>
 				<Outlet />
 			</main>
-			<footer className='p-4 border-t'>Footer</footer>
+			<Footer />
 		</div>
 	);
 };

@@ -16,11 +16,9 @@ const Login = () => {
 	return (
 		<>
 			<Section>
-				<div className='p-5'>
-					<button className='border p-3' onClick={loginWithGoogle}>
-						Login with Google
-					</button>
-				</div>
+				<button className='border p-3' onClick={loginWithGoogle}>
+					Login with Google
+				</button>
 			</Section>
 		</>
 	);
