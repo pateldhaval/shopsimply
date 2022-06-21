@@ -12,7 +12,7 @@ export const CategoryItem: React.FC<Props> = (props) => {
 	return (
 		<>
 			<div
-				className='col-span-1 h-96 bg-no-repeat bg-cover bg-center relative'
+				className='h-96 bg-no-repeat bg-cover bg-center relative'
 				style={{ backgroundImage: `url(${imageUrl})` }}
 			>
 				<div className='absolute bottom-0 left-0 w-full p-5 capitalize bg-slate-200/90 hover:bg-slate-300/90'>
