@@ -1,4 +1,6 @@
+import { Button } from '@/components/Button';
 import { Section } from '@/components/Section';
+import { Signup } from '@/components/Signup';
 import { createProfileFromAuth, loginWithGooglePopup } from '@/utils/firebase/firebase.util';
 
 const Login = () => {
@@ -16,9 +18,9 @@ const Login = () => {
 	return (
 		<>
 			<Section>
-				<button className='border p-3' onClick={loginWithGoogle}>
-					Login with Google
-				</button>
+				<Signup />
+				<br />
+				<Button onClick={loginWithGoogle}>Login with Google</Button>
 			</Section>
 		</>
 	);

@@ -1,6 +1,7 @@
 // import './Counter.css';
 import { useState } from 'react';
 
+import { Button } from '@/components/Button';
 import { Section } from '@/components/Section';
 
 interface Props {
@@ -13,9 +14,9 @@ export const Counter: React.FC<Props> = (props) => {
 	return (
 		<>
 			<Section>
-				<button type='button' onClick={() => setCount((count) => count + 1)}>
+				<Button type='button' onClick={() => setCount((count) => count + 1)}>
 					Count: {count}
-				</button>
+				</Button>
 			</Section>
 		</>
 	);
