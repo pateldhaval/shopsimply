@@ -4,9 +4,14 @@ export interface Category {
 	imageUrl: string;
 }
 
-export interface SignupFormFields {
+export interface SignUpFormFields {
 	displayName: string;
 	email: string;
 	password: string;
 	confirmPassword: string;
+}
+
+export interface SignInFormFields {
+	email: string;
+	password: string;
 }
