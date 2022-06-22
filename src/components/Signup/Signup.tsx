@@ -5,6 +5,9 @@ import { useState } from 'react';
 import { SignupFormFields } from '@/app/types';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
+import {
+    createAuthUserWithEmailAndPassword, createProfileFromAuth
+} from '@/utils/firebase/firebase.util';
 
 const initialFormFields: SignupFormFields = {
 	displayName: '',
@@ -19,11 +22,36 @@ interface Props {
 
 export const Signup: React.FC<Props> = (props) => {
 	const [formFields, setFormFields] = useState(initialFormFields);
+	const { displayName, email, password, confirmPassword } = formFields;
 
-	const handleSubmit = (event: any) => {
+	const handleSubmit = async (event: any) => {
 		event.preventDefault();
-		console.log(event.target);
-		handleReset();
+
+		if (password !== confirmPassword) {
+			alert('Password does not match');
+			return;
+		}
+
+		try {
+			const response = await createAuthUserWithEmailAndPassword(
+				email,
+				password
+			);
+			// console.log(response?.user);
+			await createProfileFromAuth(response?.user!, {
+				// Additional information
+				displayName: displayName
+			});
+			alert('User created successfully.');
+
+			// Reset from
+			handleReset();
+		} catch (error: any) {
+			if (error.code === 'auth/email-already-in-use') {
+				alert('Oops!! Email is already in use');
+			}
+			console.log(error);
+		}
 	};
 
 	const handleChange = (event: any) => {
@@ -42,28 +70,32 @@ export const Signup: React.FC<Props> = (props) => {
 					label='Display Name'
 					type='text'
 					name='displayName'
-					value={formFields.displayName}
+					required
+					value={displayName}
 					onChange={handleChange}
 				/>
 				<Input
 					label='Email'
 					type='email'
 					name='email'
-					value={formFields.email}
+					required
+					value={email}
 					onChange={handleChange}
 				/>
 				<Input
 					label='Password'
 					type='password'
 					name='password'
-					value={formFields.password}
+					required
+					value={password}
 					onChange={handleChange}
 				/>
 				<Input
 					label='Confirm Password'
 					type='password'
 					name='confirmPassword'
-					value={formFields.confirmPassword}
+					required
+					value={confirmPassword}
 					onChange={handleChange}
 				/>
 				<div>

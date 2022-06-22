@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, User } from 'firebase/auth';
+import {
+    createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup, User
+} from 'firebase/auth';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
 const env = import.meta.env;
@@ -35,7 +37,14 @@ export const loginWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 export const firestore = getFirestore();
 
 // Entry to profile doc with auth
-export const createProfileFromAuth = async (authUser: User) => {
+export const createProfileFromAuth = async (
+	/** We'll get all user information if login via 3rd party provider */
+	authUser: User,
+	/** We'll need this information if Signup via Email & Password */
+	additionalInfo = {}
+) => {
+	if (!authUser) return;
+
 	const refProfileDoc = doc(firestore, 'profiles', authUser.uid);
 	const profileSnapshot = await getDoc(refProfileDoc);
 	// console.log(authUser);
@@ -45,9 +54,25 @@ export const createProfileFromAuth = async (authUser: User) => {
 		const createdAt = new Date();
 
 		try {
-			await setDoc(refProfileDoc, { email, displayName, photoURL, createdAt });
+			await setDoc(refProfileDoc, {
+				email,
+				displayName,
+				photoURL,
+				createdAt,
+				/** Additional information for Signup via Email & Password */
+				...additionalInfo
+			});
 		} catch (error: any) {
 			console.error(error.message);
 		}
 	}
+};
+
+export const createAuthUserWithEmailAndPassword = async (
+	email: string,
+	password: string
+) => {
+	if (!email || !password) return;
+
+	return await createUserWithEmailAndPassword(auth, email, password);
 };

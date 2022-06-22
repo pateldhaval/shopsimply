@@ -8,8 +8,8 @@ const Login = () => {
 		try {
 			const response = await loginWithGooglePopup();
 			// console.log(response);
-			const ref = await createProfileFromAuth(response.user);
-			console.log(ref);
+			await createProfileFromAuth(response.user);
+			alert('Logged in successfully.');
 		} catch (error) {
 			console.log(error);
 		}
