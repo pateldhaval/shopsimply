@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { SignupFormFields } from '@/app/types';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
+import { Section } from '@/components/Section';
 import {
     createAuthUserWithEmailAndPassword, createProfileFromAuth
 } from '@/utils/firebase/firebase.util';
@@ -64,7 +65,7 @@ export const Signup: React.FC<Props> = (props) => {
 	};
 
 	return (
-		<>
+		<Section>
 			<form onSubmit={handleSubmit} className='space-y-4'>
 				<Input
 					label='Display Name'
@@ -102,6 +103,6 @@ export const Signup: React.FC<Props> = (props) => {
 					<Button>Submit</Button>
 				</div>
 			</form>
-		</>
+		</Section>
 	);
 };

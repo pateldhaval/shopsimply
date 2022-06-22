@@ -12,7 +12,7 @@ export const Header: React.FC<Props> = (props) => {
 			<div className='container space-x-4'>
 				<Link to='/'>Home</Link>
 				<Link to='/reports'>Reports</Link>
-				<Link to='/login'>Login</Link>
+				<Link to='/auth'>Login</Link>
 			</div>
 		</header>
 	);
