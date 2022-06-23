@@ -1,8 +1,15 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import {
-    createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword,
-    signInWithPopup, User
+	createUserWithEmailAndPassword,
+	getAuth,
+	GoogleAuthProvider,
+	NextOrObserver,
+	onAuthStateChanged,
+	signInWithEmailAndPassword,
+	signInWithPopup,
+	signOut,
+	User
 } from 'firebase/auth';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
@@ -36,10 +43,6 @@ export const auth = getAuth();
 // Global firestore db reference from Firebase
 export const firestore = getFirestore();
 
-// Export SignIn method
-export const signInWithGooglePopup = () =>
-	signInWithPopup(auth, googleProvider);
-
 // Entry to profile doc (in db) with authenticated user
 export const createProfileFromAuth = async (
 	/** We'll get all user information if SignIn via 3rd party provider */
@@ -71,6 +74,10 @@ export const createProfileFromAuth = async (
 	}
 };
 
+// SignIn via Google Popup
+export const signInWithGooglePopup = () =>
+	signInWithPopup(auth, googleProvider);
+
 // SignUp via Email & Password
 export const createAuthUserWithEmailAndPassword = async (
 	email: string,
@@ -90,3 +97,10 @@ export const signInAuthUserWithEmailAndPassword = async (
 
 	return await signInWithEmailAndPassword(auth, email, password);
 };
+
+// Sign Out
+export const signOutAuthUser = () => signOut(auth);
+
+// Auth state change event listener
+export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
+	onAuthStateChanged(auth, callback);

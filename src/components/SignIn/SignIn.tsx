@@ -5,7 +5,8 @@ import { SignInFormFields } from '@/app/types';
 import { Button } from '@/components/Button';
 import { Section } from '@/components/Section';
 import {
-    createProfileFromAuth, signInAuthUserWithEmailAndPassword, signInWithGooglePopup
+	signInAuthUserWithEmailAndPassword,
+	signInWithGooglePopup
 } from '@/utils/firebase/firebase.util';
 
 import { Input } from '../Input';
@@ -25,12 +26,17 @@ export const SignIn: React.FC<Props> = (props) => {
 
 	const signInWithGoogle = async () => {
 		try {
-			const response = await signInWithGooglePopup();
-			// console.log(response);
-			await createProfileFromAuth(response.user);
+			await signInWithGooglePopup();
 			alert('Logged in successfully.');
-		} catch (error) {
-			console.log(error);
+		} catch (error: any) {
+			switch (error.code) {
+				case 'auth/popup-closed-by-user':
+					console.log('Oops!! Popup closed by user without login');
+					break;
+				default:
+					console.log(error);
+					break;
+			}
 		}
 	};
 
@@ -38,23 +44,24 @@ export const SignIn: React.FC<Props> = (props) => {
 		event.preventDefault();
 
 		try {
-			const response = await signInAuthUserWithEmailAndPassword(
-				email,
-				password
-			);
-			console.log(response);
+			await signInAuthUserWithEmailAndPassword(email, password);
+			// console.log(response);
 			alert('Signed in successfully.');
 
 			// Reset from
 			handleReset();
 		} catch (error: any) {
-			if (error.code === 'auth/user-not-found') {
-				alert('Oops!! User not found');
+			switch (error.code) {
+				case 'auth/user-not-found':
+					alert('Oops!! User not found');
+					break;
+				case 'auth/wrong-password':
+					alert('Oops!! Password is incorrect');
+					break;
+				default:
+					console.log(error);
+					break;
 			}
-			if (error.code === 'auth/wrong-password') {
-				alert('Oops!! Password is incorrect');
-			}
-			console.log(error);
 		}
 	};
 
