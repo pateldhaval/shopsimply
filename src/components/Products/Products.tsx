@@ -1,6 +1,5 @@
 // import './Categories.css';
 
-import { CategoryItem } from '@/components/CategoryItem';
 import { Section } from '@/components/Section';
 import { useProductContext } from '@/utils/context/Product.context';
 
