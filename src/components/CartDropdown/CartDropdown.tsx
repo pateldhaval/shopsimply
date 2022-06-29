@@ -14,7 +14,7 @@ export const CartDropdown: React.FC<Props> = (props) => {
 	const { cartItems, cartQty, cartAmount } = useCartContext();
 	return (
 		<>
-			<div className='w-72 absolute top-14 right-5 z-10 shadow-lg pt-4 bg-white'>
+			<div className='w-72 absolute top-14 right-0 z-10 shadow-lg pt-4 bg-white'>
 				{cartQty > 0 ? (
 					<>
 						<div className='h-60 overflow-auto space-y-4 px-4'>
@@ -23,7 +23,7 @@ export const CartDropdown: React.FC<Props> = (props) => {
 							))}
 						</div>
 						<div className='p-4'>
-							<Button isBlock>
+							<Button block>
 								Checkout <strong>${cartAmount}</strong>
 							</Button>
 						</div>
