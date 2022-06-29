@@ -4,6 +4,17 @@ export interface Category {
 	imageUrl: string;
 }
 
+export interface Product {
+	id: number;
+	name: string;
+	imageUrl: string;
+	price: number;
+}
+
+export interface CartProduct extends Product {
+	qty: number;
+}
+
 export interface SignUpFormFields {
 	displayName: string;
 	email: string;

@@ -4,11 +4,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { CartDropdown } from '@/components/CartDropdown';
-import { useCartContext } from '@/utils/context/Card.context';
+import { useCartContext } from '@/utils/context/Cart.context';
 import { useGlobalContext } from '@/utils/context/Global.context';
-import { signOutAuthUser } from '@/utils/firebase/firebase.util';
 
-import { Button } from '../Button';
+import { ProfileDropdown } from '../ProfileDropdown';
 
 interface Props {
 	// children: React.ReactNode;
@@ -17,7 +16,7 @@ interface Props {
 export const Header: React.FC<Props> = (props) => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
 	const { userState } = useGlobalContext();
-	const { isCartOpen, setIsCartOpen } = useCartContext();
+	const { isCartOpen, setIsCartOpen, cartQty } = useCartContext();
 
 	const toggleCart = () => setIsCartOpen(!isCartOpen);
 
@@ -36,23 +35,18 @@ export const Header: React.FC<Props> = (props) => {
 							<button onClick={() => setIsProfileOpen(!isProfileOpen)}>
 								Profile
 							</button>
-							{isProfileOpen && (
-								<div className='absolute top-14 left-0 w-40 p-4 bg-white shadow-md'>
-									<div className='pb-3'>
-										{userState.displayName ? userState.displayName : 'User'}
-									</div>
-									<div className='pt-4 border-t'>
-										<Button onClick={signOutAuthUser}>Sign Out</Button>
-									</div>
-								</div>
-							)}
+							{isProfileOpen && <ProfileDropdown user={userState} />}
 						</span>
 					) : (
 						<Link to='/auth'>Sign In</Link>
 					)}
-					<button onClick={toggleCart}>Cart [0]</button>
+					<span className='relative'>
+						<button onClick={toggleCart}>
+							Cart {cartQty > 0 && `[${cartQty}]`}
+						</button>
+						{isCartOpen && <CartDropdown />}
+					</span>
 				</div>
-				{isCartOpen && <CartDropdown />}
 			</div>
 		</header>
 	);

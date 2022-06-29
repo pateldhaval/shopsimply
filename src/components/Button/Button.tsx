@@ -2,16 +2,16 @@
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	children: React.ReactNode;
-	isBlock?: boolean;
+	block?: boolean;
 }
 
 export const Button: React.FC<Props> = (props) => {
 	// Right way to separate out native properties
-	const { isBlock, ...rest } = props;
+	const { block, ...rest } = props;
 
 	let classes = ['py-2 px-6 rounded border border-slate-300 bg-slate-300'];
 
-	if (isBlock) classes.push('w-full');
+	if (block) classes.push('w-full');
 
 	return (
 		<button className={classes.join(' ')} {...rest}>

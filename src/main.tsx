@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from '@/App';
-import { CartProvider } from '@/utils/context/Card.context';
+import { CartProvider } from '@/utils/context/Cart.context';
 import { GlobalProvider } from '@/utils/context/Global.context';
 
 import { ProductProvider } from './utils/context/Product.context';

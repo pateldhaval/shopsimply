@@ -9,7 +9,7 @@
 		"id": 2,
 		"name": "Blue Beanie",
 		"imageUrl": "https://i.ibb.co/ypkgK0X/blue-beanie.png",
-		"price": 18
+		"price": 20
 	},
 	{
 		"id": 3,
@@ -27,13 +27,13 @@
 		"id": 5,
 		"name": "Green Beanie",
 		"imageUrl": "https://i.ibb.co/YTjW3vF/green-beanie.png",
-		"price": 18
+		"price": 30
 	},
 	{
 		"id": 6,
 		"name": "Palm Tree Cap",
 		"imageUrl": "https://i.ibb.co/rKBDvJX/palm-tree-cap.png",
-		"price": 14
+		"price": 15
 	},
 	{
 		"id": 7,
