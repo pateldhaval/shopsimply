@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { CartDropdown } from '@/components/CartDropdown';
-import { useCartContext } from '@/utils/context/Card.context';
+import { useCartContext } from '@/utils/context/Cart.context';
 import { useGlobalContext } from '@/utils/context/Global.context';
 import { signOutAuthUser } from '@/utils/firebase/firebase.util';
 
@@ -17,7 +17,7 @@ interface Props {
 export const Header: React.FC<Props> = (props) => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
 	const { userState } = useGlobalContext();
-	const { isCartOpen, setIsCartOpen } = useCartContext();
+	const { isCartOpen, setIsCartOpen, cartQty } = useCartContext();
 
 	const toggleCart = () => setIsCartOpen(!isCartOpen);
 
@@ -50,7 +50,9 @@ export const Header: React.FC<Props> = (props) => {
 					) : (
 						<Link to='/auth'>Sign In</Link>
 					)}
-					<button onClick={toggleCart}>Cart [0]</button>
+					<button onClick={toggleCart}>
+						Cart {cartQty > 0 && `[${cartQty}]`}
+					</button>
 				</div>
 				{isCartOpen && <CartDropdown />}
 			</div>
