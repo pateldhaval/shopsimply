@@ -1,6 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-import dataProducts from '../../data/products.json';
+// import { dataShop } from '@/data/shop';
+// import { addCollectionAndDocumentsOnce } from '../firebase/firebase.util';
 
 const ProductContext = createContext<any>({
 	products: [],
@@ -12,7 +13,14 @@ interface PropsProvider {
 }
 
 export const ProductProvider: React.FC<PropsProvider> = (props) => {
-	const [products, setProducts] = useState(dataProducts);
+	const [products, setProducts] = useState([]);
+
+	// Once time use to add data from json/js/ts to database
+	// useEffect(() => {
+	// 	addCollectionAndDocumentsOnce('categories', dataShop, 'title');
+	// }, []);
+
+	// Context Provider
 	const values = { products, setProducts };
 	return (
 		<ProductContext.Provider value={values}>

@@ -7,9 +7,19 @@ import {
 	signOut,
 	User
 } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+	collection,
+	doc,
+	getDoc,
+	setDoc,
+	writeBatch
+} from 'firebase/firestore';
 
 import { auth, firestore, googleProvider } from './firebase.config';
+
+// =================================================================================
+// Authentication utilities
+// =================================================================================
 
 // Entry to profile doc (in db) with authenticated user
 export const createProfileFromAuth = async (
@@ -72,3 +82,31 @@ export const signOutAuthUser = () => signOut(auth);
 // Auth state change event listener
 export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
 	onAuthStateChanged(auth, callback);
+
+// =================================================================================
+// Other firestore utilities
+// =================================================================================
+export const addCollectionAndDocumentsOnce = async (
+	collectionKey: string,
+	objectsToAdd: any,
+	documentKey: string
+) => {
+	// Get the reference to the collection
+	const collectionRef = collection(firestore, collectionKey);
+
+	// Get the instance of the batch
+	const batch = writeBatch(firestore);
+
+	// Prepare the transaction in batch
+	objectsToAdd.forEach((object: any) => {
+		// Get the reference to the document
+		const docRef = doc(collectionRef, object[documentKey].toLowerCase());
+		// console.log(object[documentKey].toLowerCase());
+
+		batch.set(docRef, object);
+	});
+
+	// Commit the batch to actual database
+	await batch.commit();
+	console.log('Done, data added');
+};

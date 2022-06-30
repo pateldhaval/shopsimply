@@ -14,7 +14,7 @@ export const Products: React.FC<Props> = (props) => {
 	const { products } = useProductContext();
 	return (
 		<Section>
-			<SectionTitle>Categories</SectionTitle>
+			<SectionTitle>Products</SectionTitle>
 			<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10'>
 				{products.map((item: any) => (
 					<div className='col-span-1' key={item.id}>
