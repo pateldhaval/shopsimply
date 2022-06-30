@@ -6,11 +6,13 @@ const CartContext = createContext<any>({
 	isCartOpen: false,
 	setIsCartOpen: () => null,
 	cartItems: [],
-	addToCart: () => null,
-	cartCount: 0,
+	cartQty: 0,
 	setCartQty: () => null,
 	cartAmount: 0,
-	setCartAmount: () => null
+	setCartAmount: () => null,
+	addToCart: () => null,
+	removeFromCart: () => null,
+	deleteFromCart: () => null
 });
 
 interface PropsProvider {
@@ -44,7 +46,6 @@ export const CartProvider: React.FC<PropsProvider> = (props) => {
 		const existingCartItem = cartItems.find((item) => item.id === product.id);
 
 		let newCartItems = [];
-
 		if (existingCartItem) {
 			// If found, create new array with incremented qty
 			newCartItems = cartItems.map((item) =>
@@ -55,6 +56,34 @@ export const CartProvider: React.FC<PropsProvider> = (props) => {
 			newCartItems = [...cartItems, { ...product, qty: 1 }];
 		}
 
+		// Set state with new array
+		setCartItems(newCartItems);
+	};
+
+	// Remove from the cart functionality
+	const removeFromCart = (product: Product) => {
+		// Find if cartItems contains a product
+		const existingCartItem = cartItems.find((item) => item.id === product.id);
+
+		let newCartItems = [];
+		if (existingCartItem.qty === 1) {
+			// If only 1 qty, create new array with a removed item
+			newCartItems = cartItems.filter((item) => item.id !== product.id);
+		} else {
+			// Else, create new array with decremented qty
+			newCartItems = cartItems.map((item) =>
+				item.id === product.id ? { ...item, qty: item.qty - 1 } : item
+			);
+		}
+
+		// Set state with new array
+		setCartItems(newCartItems);
+	};
+
+	const deleteFromCart = (product: Product) => {
+		// New array with deleted item
+		const newCartItems = cartItems.filter((item) => item.id !== product.id);
+		// Set state with new array
 		setCartItems(newCartItems);
 	};
 
@@ -64,7 +93,9 @@ export const CartProvider: React.FC<PropsProvider> = (props) => {
 		cartItems,
 		cartQty,
 		cartAmount,
-		addToCart
+		addToCart,
+		removeFromCart,
+		deleteFromCart
 	};
 	return (
 		<CartContext.Provider value={values}>{props.children}</CartContext.Provider>
