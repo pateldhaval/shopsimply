@@ -8,7 +8,7 @@ import App from '@/App';
 import { CartProvider } from '@/utils/context/Cart.context';
 import { GlobalProvider } from '@/utils/context/Global.context';
 
-import { ProductProvider } from './utils/context/Product.context';
+import { ShopProvider } from './utils/context/Shop.context';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -17,11 +17,11 @@ root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<GlobalProvider>
-				<ProductProvider>
+				<ShopProvider>
 					<CartProvider>
 						<App />
 					</CartProvider>
-				</ProductProvider>
+				</ShopProvider>
 			</GlobalProvider>
 		</BrowserRouter>
 	</React.StrictMode>

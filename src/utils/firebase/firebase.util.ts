@@ -1,9 +1,5 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
 import {
 	createUserWithEmailAndPassword,
-	getAuth,
-	GoogleAuthProvider,
 	NextOrObserver,
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
@@ -11,37 +7,21 @@ import {
 	signOut,
 	User
 } from 'firebase/auth';
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import {
+	collection,
+	doc,
+	getDoc,
+	getDocs,
+	query,
+	setDoc,
+	writeBatch
+} from 'firebase/firestore';
 
-const env = import.meta.env;
+import { auth, firestore, googleProvider } from './firebase.config';
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-	apiKey: env.VITE_FIREBASE_API_KEY,
-	authDomain: `${env.VITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
-	projectId: env.VITE_FIREBASE_PROJECT_ID,
-	storageBucket: `${env.VITE_FIREBASE_PROJECT_ID}.appspot.com`,
-	messagingSenderId: '563586386211',
-	appId: env.VITE_FIREBASE_APP_ID
-};
-
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-
-// 3rd party Auth provider (Google)
-const googleProvider = new GoogleAuthProvider();
-googleProvider.setCustomParameters({
-	prompt: 'select_account'
-});
-
-// Global auth used with Firebase methods
-export const auth = getAuth();
-
-// Global firestore db reference from Firebase
-export const firestore = getFirestore();
+// =================================================================================
+// Authentication utilities
+// =================================================================================
 
 // Entry to profile doc (in db) with authenticated user
 export const createProfileFromAuth = async (
@@ -104,3 +84,50 @@ export const signOutAuthUser = () => signOut(auth);
 // Auth state change event listener
 export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
 	onAuthStateChanged(auth, callback);
+
+// =================================================================================
+// Other firestore utilities
+// =================================================================================
+export const addCollectionAndDocuments = async (
+	collectionKey: string,
+	objectsToAdd: any,
+	documentKey: string
+) => {
+	// Get the reference to the collection
+	const collectionRef = collection(firestore, collectionKey);
+
+	// Get the instance of the batch
+	const batch = writeBatch(firestore);
+
+	// Prepare the transaction in batch
+	objectsToAdd.forEach((object: any) => {
+		// Get the reference to the document
+		const docRef = doc(collectionRef, object[documentKey].toLowerCase());
+		// console.log(object[documentKey].toLowerCase());
+
+		batch.set(docRef, object);
+	});
+
+	// Commit the batch to actual database
+	await batch.commit();
+	console.log('Done, data added');
+};
+
+export const getCollectionAndDocuments = async (collectionKey: string) => {
+	const collectionRef = collection(firestore, collectionKey);
+
+	const q = query(collectionRef);
+
+	const querySnapshot = await getDocs(q);
+	const dataMap = querySnapshot.docs.reduce(
+		(acc, docSnapshot) => {
+			// console.log(acc);
+			const { title, products } = docSnapshot.data();
+			acc[title.toLowerCase()] = products;
+			return acc;
+		},
+		[null]
+	);
+
+	return dataMap;
+};

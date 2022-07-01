@@ -24,7 +24,7 @@ export const CartDropdown: React.FC<Props> = (props) => {
 	return (
 		<>
 			<div className='w-72 absolute top-14 right-0 z-10 shadow-lg pt-4 bg-white'>
-				{cartQty > 0 ? (
+				{cartItems.length ? (
 					<>
 						<div className='h-60 overflow-auto space-y-4 px-4'>
 							{cartItems.map((item: CartProduct) => (
