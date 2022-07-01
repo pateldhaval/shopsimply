@@ -2,7 +2,10 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import { Category } from '@/app/types';
 // import { dataShop } from '@/data/shop';
-import { getCollectionAndDocuments } from '@/utils/firebase/firebase.util';
+import {
+	addCollectionAndDocuments,
+	getCollectionAndDocuments
+} from '@/utils/firebase/firebase.util';
 
 const ShopContext = createContext<any>({
 	categoriesMap: [],
@@ -14,7 +17,7 @@ interface PropsProvider {
 }
 
 export const ShopProvider: React.FC<PropsProvider> = (props) => {
-	const [categoriesMap, setCategoriesMap] = useState<Category[] | null[]>([]);
+	const [categoriesMap, setCategoriesMap] = useState<Category[] | {}[]>([]);
 
 	// Once time use to add data from json/js/ts to database
 	// useEffect(() => {
@@ -24,6 +27,7 @@ export const ShopProvider: React.FC<PropsProvider> = (props) => {
 	useEffect(() => {
 		const getCategoriesMap = async () => {
 			const categoriesMap = await getCollectionAndDocuments('categories');
+			// console.log(categoriesMap);
 			setCategoriesMap(categoriesMap);
 		};
 

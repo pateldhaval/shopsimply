@@ -20,13 +20,14 @@ export const Products: React.FC<Props> = (props) => {
 		<Section>
 			<div className='space-y-20'>
 				{Object.keys(categoriesMap).map((title) => {
-					const products = categoriesMap[title];
+					const category = categoriesMap[title];
 					return (
-						products && (
+						category &&
+						Object.keys(category).length > 0 && (
 							<div key={title}>
 								<SectionTitle>{title}</SectionTitle>
 								<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10'>
-									{products.map((product: any) => (
+									{category.products.map((product: any) => (
 										<div className='col-span-1' key={product.id}>
 											<ProductCard product={product} />
 										</div>
