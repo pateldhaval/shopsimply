@@ -3,6 +3,7 @@ import { Category } from '@/app/types';
 export const dataShop: Category[] = [
 	{
 		title: 'Hats',
+		imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
 		products: [
 			{
 				id: 1,
@@ -62,6 +63,7 @@ export const dataShop: Category[] = [
 	},
 	{
 		title: 'Sneakers',
+		imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
 		products: [
 			{
 				id: 10,
@@ -115,6 +117,7 @@ export const dataShop: Category[] = [
 	},
 	{
 		title: 'Jackets',
+		imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
 		products: [
 			{
 				id: 18,
@@ -150,6 +153,7 @@ export const dataShop: Category[] = [
 	},
 	{
 		title: 'Womens',
+		imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
 		products: [
 			{
 				id: 23,
@@ -197,6 +201,7 @@ export const dataShop: Category[] = [
 	},
 	{
 		title: 'Mens',
+		imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
 		products: [
 			{
 				id: 30,
