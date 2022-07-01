@@ -1,21 +1,20 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { Category } from '@/app/types';
+// import { dataShop } from '@/data/shop';
 import { getCollectionAndDocuments } from '@/utils/firebase/firebase.util';
 
-// import { dataShop } from '@/data/shop';
-// import { addCollectionAndDocuments } from '@/utils/firebase/firebase.util';
-
-const ProductContext = createContext<any>({
-	products: [],
-	setProducts: () => null
+const ShopContext = createContext<any>({
+	categoriesMap: [],
+	setCategoriesMap: () => null
 });
 
 interface PropsProvider {
 	children: React.ReactNode;
 }
 
-export const ProductProvider: React.FC<PropsProvider> = (props) => {
-	const [products, setProducts] = useState<any>([]);
+export const ShopProvider: React.FC<PropsProvider> = (props) => {
+	const [categoriesMap, setCategoriesMap] = useState<Category[] | null[]>([]);
 
 	// Once time use to add data from json/js/ts to database
 	// useEffect(() => {
@@ -25,21 +24,19 @@ export const ProductProvider: React.FC<PropsProvider> = (props) => {
 	useEffect(() => {
 		const getCategoriesMap = async () => {
 			const categoriesMap = await getCollectionAndDocuments('categories');
-			setProducts(categoriesMap);
+			setCategoriesMap(categoriesMap);
 		};
 
 		getCategoriesMap();
 	}, []);
 
 	// Context Provider
-	const values = { products, setProducts };
+	const values = { categoriesMap, setCategoriesMap };
 	return (
-		<ProductContext.Provider value={values}>
-			{props.children}
-		</ProductContext.Provider>
+		<ShopContext.Provider value={values}>{props.children}</ShopContext.Provider>
 	);
 };
 
-export const useProductContext = () => {
-	return useContext(ProductContext);
+export const useShopContext = () => {
+	return useContext(ShopContext);
 };

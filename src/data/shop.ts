@@ -1,7 +1,9 @@
-export const dataShop = [
+import { Category } from '@/app/types';
+
+export const dataShop: Category[] = [
 	{
 		title: 'Hats',
-		items: [
+		products: [
 			{
 				id: 1,
 				name: 'Brown Brim',
@@ -60,7 +62,7 @@ export const dataShop = [
 	},
 	{
 		title: 'Sneakers',
-		items: [
+		products: [
 			{
 				id: 10,
 				name: 'Adidas NMD',
@@ -113,7 +115,7 @@ export const dataShop = [
 	},
 	{
 		title: 'Jackets',
-		items: [
+		products: [
 			{
 				id: 18,
 				name: 'Black Jean Shearling',
@@ -148,7 +150,7 @@ export const dataShop = [
 	},
 	{
 		title: 'Womens',
-		items: [
+		products: [
 			{
 				id: 23,
 				name: 'Blue Tanktop',
@@ -195,7 +197,7 @@ export const dataShop = [
 	},
 	{
 		title: 'Mens',
-		items: [
+		products: [
 			{
 				id: 30,
 				name: 'Camo Down Vest',
