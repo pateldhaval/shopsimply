@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const CheckoutList: React.FC<Props> = (props) => {
-	const { cartItems, cartQty, cartAmount } = useCartContext();
+	const { cartItems, cartAmount } = useCartContext();
 	return (
 		<Section>
 			<SectionTitle>Items to checkout</SectionTitle>
@@ -31,7 +31,7 @@ export const CheckoutList: React.FC<Props> = (props) => {
 					</div>
 				)}
 			</div>
-			{cartItems.length && (
+			{cartItems.length > 0 && (
 				<div className='mt-6 text-right text-2xl p-4'>
 					Total: <span className='font-bold'>${cartAmount}</span>
 				</div>

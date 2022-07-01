@@ -11,6 +11,8 @@ import {
 	collection,
 	doc,
 	getDoc,
+	getDocs,
+	query,
 	setDoc,
 	writeBatch
 } from 'firebase/firestore';
@@ -86,7 +88,7 @@ export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
 // =================================================================================
 // Other firestore utilities
 // =================================================================================
-export const addCollectionAndDocumentsOnce = async (
+export const addCollectionAndDocuments = async (
 	collectionKey: string,
 	objectsToAdd: any,
 	documentKey: string
@@ -109,4 +111,23 @@ export const addCollectionAndDocumentsOnce = async (
 	// Commit the batch to actual database
 	await batch.commit();
 	console.log('Done, data added');
+};
+
+export const getCollectionAndDocuments = async (collectionKey: string) => {
+	const collectionRef = collection(firestore, collectionKey);
+
+	const q = query(collectionRef);
+
+	const querySnapshot = await getDocs(q);
+	const dataMap = querySnapshot.docs.reduce(
+		(acc, docSnapshot) => {
+			// console.log(acc);
+			const { title, items } = docSnapshot.data();
+			acc[title.toLowerCase()] = items;
+			return acc;
+		},
+		[null]
+	);
+
+	return dataMap;
 };
