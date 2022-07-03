@@ -1,9 +1,9 @@
-import { Products } from '@/components/Products';
+import { CategoriesPreview } from '@/components/CategoriesPreview';
 
 const Shop = () => {
 	return (
 		<>
-			<Products />
+			<CategoriesPreview />
 		</>
 	);
 };
