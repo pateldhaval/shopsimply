@@ -2,19 +2,14 @@
 
 import React from 'react';
 
+import { CategoriesPreview } from '@/components/CategoriesPreview';
 import { Section } from '@/components/Section';
 import { useShopContext } from '@/utils/context/Shop.context';
 
-import { ProductCard } from '../ProductCard';
-import { SectionTitle } from '../SectionTitle';
-
-interface Props {
-	// children: React.ReactNode;
-}
+interface Props {}
 
 export const Products: React.FC<Props> = (props) => {
 	const { categoriesMap } = useShopContext();
-	// console.log(categoriesMap);
 
 	return (
 		<Section>
@@ -24,16 +19,11 @@ export const Products: React.FC<Props> = (props) => {
 					return (
 						category &&
 						Object.keys(category).length > 0 && (
-							<div key={title}>
-								<SectionTitle>{title}</SectionTitle>
-								<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10'>
-									{category.products.map((product: any) => (
-										<div className='col-span-1' key={product.id}>
-											<ProductCard product={product} />
-										</div>
-									))}
-								</div>
-							</div>
+							<CategoriesPreview
+								key={title}
+								title={title}
+								products={category.products}
+							/>
 						)
 					);
 				})}

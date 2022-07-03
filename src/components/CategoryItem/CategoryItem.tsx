@@ -16,7 +16,7 @@ export const CategoryItem: React.FC<Props> = (props) => {
 				style={{ backgroundImage: `url(${imageUrl})` }}
 			>
 				<div className='absolute bottom-0 left-0 w-full p-5 capitalize bg-slate-200/90 hover:bg-slate-300/90'>
-					<h2 className='text-2xl'>{title}</h2>
+					<h2 className='text-xl font-bold'>{title.toUpperCase()}</h2>
 				</div>
 			</div>
 		</>
