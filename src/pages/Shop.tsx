@@ -1,11 +1,7 @@
-import { CategoriesPreview } from '@/components/CategoriesPreview';
+import ShopRouter from '@/routes/shop.router';
 
 const Shop = () => {
-	return (
-		<>
-			<CategoriesPreview />
-		</>
-	);
+	return <ShopRouter />;
 };
 
 export default Shop;

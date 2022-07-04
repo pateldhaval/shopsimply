@@ -1,5 +1,7 @@
 // import './CategoriesPreview.css';
 
+import { Link } from 'react-router-dom';
+
 import { ProductCard } from '../ProductCard';
 import { SectionTitle } from '../SectionTitle';
 
@@ -13,7 +15,9 @@ export const CategoryPreviewItem: React.FC<Props> = (props) => {
 
 	return (
 		<div>
-			<SectionTitle>{title.toUpperCase()}</SectionTitle>
+			<SectionTitle>
+				<Link to={`/shop/${title}`}>{title.toUpperCase()}</Link>
+			</SectionTitle>
 			<div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10'>
 				{products
 					// Filter first 4 products from the array
