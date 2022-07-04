@@ -35,3 +35,7 @@ export interface SignInFormFields {
 export interface UserState {
 	user: User | null;
 }
+
+export interface ShopState {
+	categoriesMap: Category[] | {};
+}

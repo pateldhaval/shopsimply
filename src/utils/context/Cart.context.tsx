@@ -15,6 +15,15 @@ const CartContext = createContext<any>({
 	deleteFromCart: () => null
 });
 
+// Initial state
+
+// Action types
+
+// Reducer
+
+// Action creators
+
+// Context Provider
 interface PropsProvider {
 	children: React.ReactNode;
 }
