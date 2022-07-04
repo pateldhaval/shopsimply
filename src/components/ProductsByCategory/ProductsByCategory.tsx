@@ -1,5 +1,3 @@
-// import './Category.css';
-
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -11,7 +9,7 @@ import { useShopContext } from '@/utils/context/Shop.context';
 
 interface Props {}
 
-export const Category: React.FC<Props> = (props) => {
+export const ProductsByCategory: React.FC<Props> = (props) => {
 	const { category } = useParams();
 	const { categoriesMap } = useShopContext();
 	const [products, setProducts] = useState<Product[]>([]);

@@ -1,6 +1,4 @@
-// import './Categories.css';
-
-import { CategoryItem } from '@/components/CategoryItem';
+import { CategoryCard } from '@/components/CategoryCard';
 import { Section } from '@/components/Section';
 import { SectionTitle } from '@/components/SectionTitle';
 import { useShopContext } from '@/utils/context/Shop.context';
@@ -20,7 +18,7 @@ export const Categories: React.FC<Props> = (props) => {
 						category &&
 						Object.keys(category).length > 0 && (
 							<div key={title} className='col-span-1'>
-								<CategoryItem category={category} />
+								<CategoryCard category={category} />
 							</div>
 						)
 					);

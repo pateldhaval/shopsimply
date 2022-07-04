@@ -1,5 +1,3 @@
-// import './Categories.css';
-
 import React from 'react';
 
 import { CategoryPreviewItem } from '@/components/CategoryPreviewItem';

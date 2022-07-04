@@ -1,15 +1,12 @@
-// import './CategoryItem.css';
-
 import { Link } from 'react-router-dom';
 
 import { Category } from '@/app/types';
 
 interface Props {
-	// children: React.ReactNode;
 	category: Category;
 }
 
-export const CategoryItem: React.FC<Props> = (props) => {
+export const CategoryCard: React.FC<Props> = (props) => {
 	const { title, imageUrl } = props.category;
 	return (
 		<Link to={`/shop/${title.toLowerCase()}`}>

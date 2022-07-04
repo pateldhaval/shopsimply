@@ -1,5 +1,3 @@
-// import './SectionTitle.css';
-
 interface Props {
 	children: React.ReactNode;
 	className?: string;

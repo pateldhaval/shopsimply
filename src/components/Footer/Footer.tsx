@@ -1,8 +1,4 @@
-// import './Footer.css';
-
-interface Props {
-	// children: React.ReactNode;
-}
+interface Props {}
 
 export const Footer: React.FC<Props> = (props) => {
 	return (

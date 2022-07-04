@@ -1,24 +1,20 @@
 import { useState } from 'react';
 
-// import './SignIn.css';
 import { SignInFormFields } from '@/app/types';
 import { Button } from '@/components/Button';
+import { Input } from '@/components/Input';
 import { Section } from '@/components/Section';
 import {
 	signInAuthUserWithEmailAndPassword,
 	signInWithGooglePopup
 } from '@/utils/firebase/firebase.util';
 
-import { Input } from '../Input';
-
 const initialFormFields: SignInFormFields = {
 	email: '',
 	password: ''
 };
 
-interface Props {
-	// children: React.ReactNode;
-}
+interface Props {}
 
 export const SignIn: React.FC<Props> = (props) => {
 	const [formFields, setFormFields] = useState(initialFormFields);

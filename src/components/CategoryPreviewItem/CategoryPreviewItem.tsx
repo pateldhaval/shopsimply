@@ -1,9 +1,7 @@
-// import './CategoriesPreview.css';
-
 import { Link } from 'react-router-dom';
 
-import { ProductCard } from '../ProductCard';
-import { SectionTitle } from '../SectionTitle';
+import { ProductCard } from '@/components/ProductCard';
+import { SectionTitle } from '@/components/SectionTitle';
 
 interface Props {
 	title: string;
