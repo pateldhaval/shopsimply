@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { CartDropdown } from '@/components/CartDropdown';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
 import { useCartContext } from '@/utils/context/Cart.context';
-import { useGlobalContext } from '@/utils/context/Global.context';
+import { useUserContext } from '@/utils/context/User.context';
 
 interface Props {}
 
 export const Header: React.FC<Props> = (props) => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
-	const { user } = useGlobalContext();
+	const { user } = useUserContext();
 	const { isCartOpen, setIsCartOpen, cartQty } = useCartContext();
 
 	const toggleCart = () => setIsCartOpen(!isCartOpen);

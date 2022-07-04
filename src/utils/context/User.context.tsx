@@ -1,31 +1,31 @@
 import { User } from 'firebase/auth';
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 
-import { GlobalState } from '@/app/types';
+import { UserState } from '@/app/types';
 import {
 	createProfileFromAuth,
 	onAuthStateChangedListener
 } from '@/utils/firebase/firebase.util';
 
-const GlobalContext = createContext<any>({
+const UserContext = createContext<any>({
 	userState: null,
 	setUserState: () => null
 });
 
 // Initial state
-const initialState: GlobalState = {
+const initialState: UserState = {
 	user: null
 };
 
 // Action types
-const enum GlobalActionTypes {
+const enum UserActionTypes {
 	SetUser = 'SetUser'
 }
 
 // Reducer
-const globalReducer = (state: GlobalState, action: any) => {
+const userReducer = (state: UserState, action: any) => {
 	switch (action.type) {
-		case GlobalActionTypes.SetUser:
+		case UserActionTypes.SetUser:
 			return {
 				...state,
 				user: action.payload
@@ -38,7 +38,7 @@ const globalReducer = (state: GlobalState, action: any) => {
 // Action creators
 const setUserState = (user: User) => {
 	return {
-		type: GlobalActionTypes.SetUser,
+		type: UserActionTypes.SetUser,
 		payload: user
 	};
 };
@@ -48,8 +48,8 @@ interface PropsProvider {
 	children: React.ReactNode;
 }
 
-export const GlobalProvider: React.FC<PropsProvider> = (props) => {
-	const [state, dispatch] = useReducer(globalReducer, initialState);
+export const UserProvider: React.FC<PropsProvider> = (props) => {
+	const [state, dispatch] = useReducer(userReducer, initialState);
 	const { user } = state;
 
 	useEffect(() => {
@@ -68,13 +68,11 @@ export const GlobalProvider: React.FC<PropsProvider> = (props) => {
 	// Provider component
 	const values = { user };
 	return (
-		<GlobalContext.Provider value={values}>
-			{props.children}
-		</GlobalContext.Provider>
+		<UserContext.Provider value={values}>{props.children}</UserContext.Provider>
 	);
 };
 
-// Custom hook to directly access GlobalContext
-export const useGlobalContext = () => {
-	return useContext(GlobalContext);
+// Custom hook to directly access UserContext
+export const useUserContext = () => {
+	return useContext(UserContext);
 };

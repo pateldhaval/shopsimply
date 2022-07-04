@@ -32,6 +32,6 @@ export interface SignInFormFields {
 // =================================================================
 // State Management
 // =================================================================
-export interface GlobalState {
+export interface UserState {
 	user: User | null;
 }
