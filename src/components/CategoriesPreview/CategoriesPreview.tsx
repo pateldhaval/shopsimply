@@ -1,25 +1,27 @@
-import { CategoryCard } from '@/components/CategoryCard';
+import React from 'react';
+
+import { CategoryPreviewItem } from '@/components/CategoryPreviewItem';
 import { Section } from '@/components/Section';
-import { SectionTitle } from '@/components/SectionTitle';
 import { useShopContext } from '@/utils/context/Shop.context';
 
 interface Props {}
 
-export const Categories: React.FC<Props> = (props) => {
+export const CategoriesPreview: React.FC<Props> = (props) => {
 	const { categoriesMap } = useShopContext();
 
 	return (
 		<Section>
-			<SectionTitle>Categories</SectionTitle>
-			<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10'>
+			<div className='space-y-20'>
 				{Object.keys(categoriesMap).map((title) => {
 					const category = categoriesMap[title];
 					return (
 						category &&
 						Object.keys(category).length > 0 && (
-							<div key={title} className='col-span-1'>
-								<CategoryCard category={category} />
-							</div>
+							<CategoryPreviewItem
+								key={title}
+								title={title}
+								products={category.products}
+							/>
 						)
 					);
 				})}

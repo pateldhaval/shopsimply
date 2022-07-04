@@ -4,7 +4,6 @@ import { CartProduct } from '@/app/types';
 import { useCartContext } from '@/utils/context/Cart.context';
 
 interface Props {
-	// children: React.ReactNode;
 	cartItem: CartProduct;
 }
 

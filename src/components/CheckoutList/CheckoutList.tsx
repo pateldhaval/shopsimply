@@ -1,11 +1,8 @@
-// import './CheckoutList.css';
-
 import { CartProduct } from '@/app/types';
 import { CheckoutItem } from '@/components/CheckoutItem';
+import { Section } from '@/components/Section';
+import { SectionTitle } from '@/components/SectionTitle';
 import { useCartContext } from '@/utils/context/Cart.context';
-
-import { Section } from '../Section';
-import { SectionTitle } from '../SectionTitle';
 
 interface Props {
 	// children: React.ReactNode;

@@ -1,7 +1,6 @@
 // import './Input.css';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-	// children: React.ReactNode;
 	label?: string;
 }
 

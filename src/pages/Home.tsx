@@ -1,8 +1,6 @@
 import { Categories } from '@/components/Categories';
 
-interface Props {}
-
-const Home: React.FC<Props> = (props) => {
+const Home = () => {
 	return (
 		<>
 			<Categories />

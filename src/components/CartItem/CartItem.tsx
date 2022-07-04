@@ -1,9 +1,6 @@
-// import './CartItem.css';
-
 import { CartProduct } from '@/app/types';
 
 interface Props {
-	// children: React.ReactNode;
 	cartItem: CartProduct;
 }
 

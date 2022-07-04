@@ -1,11 +1,7 @@
-import { Products } from '@/components/Products';
+import ShopRouter from '@/routes/shop.router';
 
 const Shop = () => {
-	return (
-		<>
-			<Products />
-		</>
-	);
+	return <ShopRouter />;
 };
 
 export default Shop;

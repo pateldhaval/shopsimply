@@ -1,12 +1,8 @@
-// import './ProductCard.css';
-
 import { Product } from '@/app/types';
+import { Button } from '@/components/Button';
 import { useCartContext } from '@/utils/context/Cart.context';
 
-import { Button } from '../Button';
-
 interface Props {
-	// children: React.ReactNode;
 	product: Product;
 }
 

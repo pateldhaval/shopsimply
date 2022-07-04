@@ -1,5 +1,3 @@
-// import './Signup.css';
-
 import { useState } from 'react';
 
 import { SignUpFormFields } from '@/app/types';
@@ -7,7 +5,8 @@ import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Section } from '@/components/Section';
 import {
-    createAuthUserWithEmailAndPassword, createProfileFromAuth
+	createAuthUserWithEmailAndPassword,
+	createProfileFromAuth
 } from '@/utils/firebase/firebase.util';
 
 const initialFormFields: SignUpFormFields = {

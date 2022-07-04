@@ -1,16 +1,11 @@
-// import './CartDropdown.css';
-
 import { useNavigate } from 'react-router-dom';
 
 import { CartProduct } from '@/app/types';
+import { Button } from '@/components/Button';
+import { CartItem } from '@/components/CartItem';
 import { useCartContext } from '@/utils/context/Cart.context';
 
-import { Button } from '../Button';
-import { CartItem } from '../CartItem';
-
-interface Props {
-	// children: React.ReactNode;
-}
+interface Props {}
 
 export const CartDropdown: React.FC<Props> = (props) => {
 	const { cartItems, cartQty, cartAmount, setIsCartOpen } = useCartContext();

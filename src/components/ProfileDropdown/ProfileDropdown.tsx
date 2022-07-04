@@ -1,11 +1,10 @@
-// import './ProfileDropdown.css';
+import { User } from 'firebase/auth';
 
 import { Button } from '@/components/Button';
 import { signOutAuthUser } from '@/utils/firebase/firebase.util';
 
 interface Props {
-	// children: React.ReactNode;
-	user: any;
+	user: User;
 }
 
 export const ProfileDropdown: React.FC<Props> = (props) => {
