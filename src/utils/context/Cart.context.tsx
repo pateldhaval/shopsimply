@@ -1,27 +1,78 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useReducer } from 'react';
 
-import { Product } from '@/app/types';
+import { CartProduct, CartState, Product } from '@/app/types';
 
-const CartContext = createContext<any>({
-	isCartOpen: false,
-	setIsCartOpen: () => null,
-	cartItems: [],
-	cartQty: 0,
-	setCartQty: () => null,
-	cartAmount: 0,
-	setCartAmount: () => null,
-	addToCart: () => null,
-	removeFromCart: () => null,
-	deleteFromCart: () => null
-});
+const CartContext = createContext<any>({});
 
 // Initial state
+const initialState: CartState = {
+	cartItems: [],
+	cartQty: 0,
+	cartAmount: 0,
+	isCartOpen: false
+};
 
 // Action types
+const enum CartActionTypes {
+	SetCartItems = 'SetCartItems',
+	SetCartQty = 'SetCartQty',
+	SetCartAmount = 'SetCartAmount',
+	SetIsCartOpen = 'SetIsCartOpen'
+}
 
 // Reducer
+const cartReducer = (state: CartState, action: any) => {
+	switch (action.type) {
+		case CartActionTypes.SetCartItems:
+			return {
+				...state,
+				cartItems: action.payload
+			};
+		case CartActionTypes.SetCartQty:
+			return {
+				...state,
+				cartQty: action.payload
+			};
+		case CartActionTypes.SetCartAmount:
+			return {
+				...state,
+				cartAmount: action.payload
+			};
+		case CartActionTypes.SetIsCartOpen:
+			return {
+				...state,
+				isCartOpen: action.payload
+			};
+		default:
+			return state;
+	}
+};
 
 // Action creators
+const setCartItems = (cartItems: CartProduct[]) => {
+	return {
+		type: CartActionTypes.SetCartItems,
+		payload: cartItems
+	};
+};
+const setCartQty = (cartQty: number) => {
+	return {
+		type: CartActionTypes.SetCartQty,
+		payload: cartQty
+	};
+};
+const setCartAmount = (cartAmount: number) => {
+	return {
+		type: CartActionTypes.SetCartAmount,
+		payload: cartAmount
+	};
+};
+const setIsCartOpen = (isCartOpen: boolean) => {
+	return {
+		type: CartActionTypes.SetIsCartOpen,
+		payload: isCartOpen
+	};
+};
 
 // Context Provider
 interface PropsProvider {
@@ -29,35 +80,38 @@ interface PropsProvider {
 }
 
 export const CartProvider: React.FC<PropsProvider> = (props) => {
-	const [isCartOpen, setIsCartOpen] = useState(false);
-	const [cartItems, setCartItems] = useState<any[]>([]);
-	const [cartQty, setCartQty] = useState(0);
-	const [cartAmount, setCartAmount] = useState(0);
+	const [state, dispatch] = useReducer(cartReducer, initialState);
+	const { cartItems, cartQty, cartAmount, isCartOpen } = state;
 
 	// Cart accumulated qty
 	useEffect(() => {
-		const totalQty = cartItems.reduce((sum, item) => sum + item.qty, 0);
-		setCartQty(totalQty);
+		const totalQty = cartItems.reduce(
+			(sum: number, item: CartProduct) => sum + item.qty,
+			0
+		);
+		dispatch(setCartQty(totalQty));
 	}, [cartItems]);
 
 	// Cart accumulated amount
 	useEffect(() => {
 		const totalAmount = cartItems.reduce(
-			(sum, item) => sum + item.price * item.qty,
+			(sum: number, item: CartProduct) => sum + item.price * item.qty,
 			0
 		);
-		setCartAmount(totalAmount);
+		dispatch(setCartAmount(totalAmount));
 	}, [cartItems]);
 
 	// Add the cart functionality
 	const addToCart = (product: Product) => {
 		// Find if cartItems contains a product
-		const existingCartItem = cartItems.find((item) => item.id === product.id);
+		const existingCartItem = cartItems.find(
+			(item: CartProduct) => item.id === product.id
+		);
 
 		let newCartItems = [];
 		if (existingCartItem) {
 			// If found, create new array with incremented qty
-			newCartItems = cartItems.map((item) =>
+			newCartItems = cartItems.map((item: CartProduct) =>
 				item.id === product.id ? { ...item, qty: item.qty + 1 } : item
 			);
 		} else {
@@ -66,39 +120,49 @@ export const CartProvider: React.FC<PropsProvider> = (props) => {
 		}
 
 		// Set state with new array
-		setCartItems(newCartItems);
+		dispatch(setCartItems(newCartItems));
 	};
 
 	// Remove from the cart functionality
 	const removeFromCart = (product: Product) => {
 		// Find if cartItems contains a product
-		const existingCartItem = cartItems.find((item) => item.id === product.id);
+		const existingCartItem = cartItems.find(
+			(item: CartProduct) => item.id === product.id
+		);
 
 		let newCartItems = [];
 		if (existingCartItem.qty === 1) {
 			// If only 1 qty, create new array with a removed item
-			newCartItems = cartItems.filter((item) => item.id !== product.id);
+			newCartItems = cartItems.filter(
+				(item: CartProduct) => item.id !== product.id
+			);
 		} else {
 			// Else, create new array with decremented qty
-			newCartItems = cartItems.map((item) =>
+			newCartItems = cartItems.map((item: CartProduct) =>
 				item.id === product.id ? { ...item, qty: item.qty - 1 } : item
 			);
 		}
 
 		// Set state with new array
-		setCartItems(newCartItems);
+		dispatch(setCartItems(newCartItems));
 	};
 
 	const deleteFromCart = (product: Product) => {
 		// New array with deleted item
-		const newCartItems = cartItems.filter((item) => item.id !== product.id);
+		const newCartItems = cartItems.filter(
+			(item: CartProduct) => item.id !== product.id
+		);
 		// Set state with new array
-		setCartItems(newCartItems);
+		dispatch(setCartItems(newCartItems));
 	};
+
+	const toggleCart = () => dispatch(setIsCartOpen(!isCartOpen));
+	const closeCart = () => dispatch(setIsCartOpen(false));
 
 	const values = {
 		isCartOpen,
-		setIsCartOpen,
+		toggleCart,
+		closeCart,
 		cartItems,
 		cartQty,
 		cartAmount,

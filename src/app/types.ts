@@ -39,3 +39,10 @@ export interface UserState {
 export interface ShopState {
 	categoriesMap: Category[] | {};
 }
+
+export interface CartState {
+	cartItems: CartProduct[];
+	cartQty: number;
+	cartAmount: number;
+	isCartOpen: boolean;
+}

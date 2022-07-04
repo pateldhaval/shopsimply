@@ -7,10 +7,7 @@ import {
 	getCollectionAndDocuments
 } from '@/utils/firebase/firebase.util';
 
-const ShopContext = createContext<any>({
-	categoriesMap: [],
-	setCategoriesMap: () => null
-});
+const ShopContext = createContext<any>({});
 
 // Initial state
 const initialState: ShopState = {

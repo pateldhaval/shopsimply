@@ -7,10 +7,7 @@ import {
 	onAuthStateChangedListener
 } from '@/utils/firebase/firebase.util';
 
-const UserContext = createContext<any>({
-	userState: null,
-	setUserState: () => null
-});
+const UserContext = createContext<any>({});
 
 // Initial state
 const initialState: UserState = {

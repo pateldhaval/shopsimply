@@ -11,9 +11,7 @@ interface Props {}
 export const Header: React.FC<Props> = (props) => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
 	const { user } = useUserContext();
-	const { isCartOpen, setIsCartOpen, cartQty } = useCartContext();
-
-	const toggleCart = () => setIsCartOpen(!isCartOpen);
+	const { isCartOpen, toggleCart, cartQty } = useCartContext();
 
 	return (
 		<header className='py-6 border-b'>
