@@ -1,3 +1,5 @@
+import { User } from 'firebase/auth';
+
 export interface Product {
 	id: number;
 	name: string;
@@ -25,4 +27,11 @@ export interface SignUpFormFields {
 export interface SignInFormFields {
 	email: string;
 	password: string;
+}
+
+// =================================================================
+// State Management
+// =================================================================
+export interface GlobalState {
+	user: User | null;
 }
