@@ -8,12 +8,12 @@ import { useCartContext } from '@/utils/context/Cart.context';
 interface Props {}
 
 export const CartDropdown: React.FC<Props> = (props) => {
-	const { cartItems, cartQty, cartAmount, setIsCartOpen } = useCartContext();
+	const { cartItems, closeCart, cartAmount } = useCartContext();
 	const navigate = useNavigate();
 
 	const handleGoToCheckout = () => {
 		navigate('checkout');
-		setIsCartOpen(false);
+		closeCart();
 	};
 
 	return (

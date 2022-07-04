@@ -4,16 +4,14 @@ import { Link } from 'react-router-dom';
 import { CartDropdown } from '@/components/CartDropdown';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
 import { useCartContext } from '@/utils/context/Cart.context';
-import { useGlobalContext } from '@/utils/context/Global.context';
+import { useUserContext } from '@/utils/context/User.context';
 
 interface Props {}
 
 export const Header: React.FC<Props> = (props) => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
-	const { userState } = useGlobalContext();
-	const { isCartOpen, setIsCartOpen, cartQty } = useCartContext();
-
-	const toggleCart = () => setIsCartOpen(!isCartOpen);
+	const { user } = useUserContext();
+	const { isCartOpen, toggleCart, cartQty } = useCartContext();
 
 	return (
 		<header className='py-6 border-b'>
@@ -25,12 +23,12 @@ export const Header: React.FC<Props> = (props) => {
 				</div>
 				<div className='space-x-6'>
 					<Link to='/shop'>Shop</Link>
-					{userState ? (
+					{user ? (
 						<span className='relative'>
 							<button onClick={() => setIsProfileOpen(!isProfileOpen)}>
 								Profile
 							</button>
-							{isProfileOpen && <ProfileDropdown user={userState} />}
+							{isProfileOpen && <ProfileDropdown user={user} />}
 						</span>
 					) : (
 						<Link to='/auth'>Sign In</Link>

@@ -1,3 +1,5 @@
+import { User } from 'firebase/auth';
+
 export interface Product {
 	id: number;
 	name: string;
@@ -25,4 +27,22 @@ export interface SignUpFormFields {
 export interface SignInFormFields {
 	email: string;
 	password: string;
+}
+
+// =================================================================
+// State Management
+// =================================================================
+export interface UserState {
+	user: User | null;
+}
+
+export interface ShopState {
+	categoriesMap: Category[] | {};
+}
+
+export interface CartState {
+	cartItems: CartProduct[];
+	cartQty: number;
+	cartAmount: number;
+	isCartOpen: boolean;
 }
