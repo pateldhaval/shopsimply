@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 import { CartDropdown } from '@/components/CartDropdown';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
-import { userSelector } from '@/store/user/user.selector';
+import { useSelectorUser } from '@/store/user/user.selector';
 import { useCartContext } from '@/utils/context/Cart.context';
 
 interface Props {}
 
 export const Header: React.FC<Props> = (props) => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
-	const { authUser } = userSelector();
+	const { authUser } = useSelectorUser();
 	const { isCartOpen, toggleCartOpen, cartQty } = useCartContext();
 
 	const handleCartOpen = () => {

@@ -1,12 +1,12 @@
 import { CategoryCard } from '@/components/CategoryCard';
 import { Section } from '@/components/Section';
 import { SectionTitle } from '@/components/SectionTitle';
-import { useShopContext } from '@/utils/context/Shop.context';
+import { useSelectorCategories } from '@/store/categories/categories.selector';
 
 interface Props {}
 
 export const Categories: React.FC<Props> = (props) => {
-	const { categoriesMap } = useShopContext();
+	const { categoriesMap } = useSelectorCategories();
 
 	return (
 		<Section>

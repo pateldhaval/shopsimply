@@ -2,12 +2,12 @@ import React from 'react';
 
 import { CategoryPreviewItem } from '@/components/CategoryPreviewItem';
 import { Section } from '@/components/Section';
-import { useShopContext } from '@/utils/context/Shop.context';
+import { useSelectorCategories } from '@/store/categories/categories.selector';
 
 interface Props {}
 
 export const CategoriesPreview: React.FC<Props> = (props) => {
-	const { categoriesMap } = useShopContext();
+	const { categoriesMap } = useSelectorCategories();
 
 	return (
 		<Section>

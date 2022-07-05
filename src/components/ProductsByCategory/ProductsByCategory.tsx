@@ -5,13 +5,13 @@ import { Product } from '@/app/types';
 import { ProductCard } from '@/components/ProductCard';
 import { Section } from '@/components/Section';
 import { SectionTitle } from '@/components/SectionTitle';
-import { useShopContext } from '@/utils/context/Shop.context';
+import { useSelectorCategories } from '@/store/categories/categories.selector';
 
 interface Props {}
 
 export const ProductsByCategory: React.FC<Props> = (props) => {
 	const { category } = useParams();
-	const { categoriesMap } = useShopContext();
+	const { categoriesMap } = useSelectorCategories();
 	const [products, setProducts] = useState<Product[]>([]);
 
 	useEffect(() => {
