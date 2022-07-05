@@ -11,7 +11,11 @@ interface Props {}
 export const Header: React.FC<Props> = (props) => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
 	const { user } = useUserContext();
-	const { isCartOpen, toggleCart, cartQty } = useCartContext();
+	const { isCartOpen, toggleCartOpen, cartQty } = useCartContext();
+
+	const handleCartOpen = () => {
+		toggleCartOpen(!isCartOpen);
+	};
 
 	return (
 		<header className='py-6 border-b'>
@@ -34,7 +38,7 @@ export const Header: React.FC<Props> = (props) => {
 						<Link to='/auth'>Sign In</Link>
 					)}
 					<span className='relative'>
-						<button onClick={toggleCart}>
+						<button onClick={handleCartOpen}>
 							Cart {cartQty > 0 && `[${cartQty}]`}
 						</button>
 						{isCartOpen && <CartDropdown />}
