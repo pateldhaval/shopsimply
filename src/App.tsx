@@ -28,8 +28,8 @@ const App = () => {
 
 	useEffect(() => {
 		const getCategoriesMap = async () => {
-			const categoriesMap = await getCollectionAndDocuments('categories');
-			dispatch(setCategoriesMap(categoriesMap));
+			const categoriesData = await getCollectionAndDocuments('categories');
+			dispatch(setCategoriesMap(categoriesData));
 		};
 
 		getCategoriesMap();

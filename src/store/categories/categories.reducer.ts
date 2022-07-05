@@ -1,17 +1,15 @@
 import { CategoriesActionTypes, CategoriesState } from './categories.types';
 
 const initialState: CategoriesState = {
-	categoriesMap: []
+	categoriesData: []
 };
 
 export const categoriesReducer = (state = initialState, action: any) => {
-	// console.log(action);
-
 	switch (action.type) {
-		case CategoriesActionTypes.SetCategoriesMap:
+		case CategoriesActionTypes.SetCategoriesData:
 			return {
 				...state,
-				categoriesMap: action.payload
+				categoriesData: action.payload
 			};
 		default:
 			return state;
