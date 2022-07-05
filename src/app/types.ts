@@ -1,5 +1,7 @@
 import { User } from 'firebase/auth';
 
+export type AuthUser = User;
+
 export interface Product {
 	id: number;
 	name: string;
@@ -32,9 +34,6 @@ export interface SignInFormFields {
 // =================================================================
 // State Management
 // =================================================================
-export interface UserState {
-	user: User | null;
-}
 
 export interface ShopState {
 	categoriesMap: Category[] | {};
