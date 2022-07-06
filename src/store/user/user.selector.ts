@@ -1,6 +1,11 @@
-import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import { RootState } from '../store';
 
-export const useSelectorUser = () =>
-	useSelector((state: RootState) => state.user);
+const selectUserState = (state: RootState) => state.user;
+
+// Memoize (Cache) authUser from state
+export const selectAuthUser = createSelector(
+	[selectUserState],
+	(user: any) => user.authUser
+);

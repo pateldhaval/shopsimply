@@ -6,14 +6,14 @@ import { CartDropdown } from '@/components/CartDropdown';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
 import { toggleCartOpen } from '@/store/cart/cart.action';
 import { selectCartQty, selectIsCartOpen } from '@/store/cart/cart.selector';
-import { useSelectorUser } from '@/store/user/user.selector';
+import { selectAuthUser } from '@/store/user/user.selector';
 
 interface Props {}
 
 export const Header: React.FC<Props> = (props) => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
 	const dispatch = useDispatch();
-	const { authUser } = useSelectorUser();
+	const authUser = useSelector(selectAuthUser);
 	const cartQty = useSelector(selectCartQty);
 	const isCartOpen = useSelector(selectIsCartOpen);
 
