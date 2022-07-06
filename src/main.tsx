@@ -7,7 +7,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from '@/App';
 import { store } from '@/store/store';
-import { CartProvider } from '@/utils/context/Cart.context';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -16,9 +15,7 @@ root.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<BrowserRouter>
-				<CartProvider>
-					<App />
-				</CartProvider>
+				<App />
 			</BrowserRouter>
 		</Provider>
 	</React.StrictMode>

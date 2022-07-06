@@ -1,16 +1,20 @@
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Product } from '@/app/types';
 import { Button } from '@/components/Button';
-import { useCartContext } from '@/utils/context/Cart.context';
+import { addToCart } from '@/store/cart/cart.action';
+import { selectCartItems } from '@/store/cart/cart.selector';
 
 interface Props {
 	product: Product;
 }
 
 export const ProductCard: React.FC<Props> = (props) => {
-	const { addToCart } = useCartContext();
+	const dispatch = useDispatch();
+	const cartItems = useSelector(selectCartItems);
 	const { name, imageUrl, price } = props.product;
 
-	const handleAddToCart = () => addToCart(props.product);
+	const handleAddToCart = () => dispatch(addToCart(cartItems, props.product));
 
 	return (
 		<div

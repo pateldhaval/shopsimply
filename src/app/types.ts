@@ -30,18 +30,3 @@ export interface SignInFormFields {
 	email: string;
 	password: string;
 }
-
-// =================================================================
-// State Management
-// =================================================================
-
-export interface ShopState {
-	categoriesMap: Category[] | {};
-}
-
-export interface CartState {
-	cartItems: CartProduct[];
-	cartQty: number;
-	cartAmount: number;
-	isCartOpen: boolean;
-}
