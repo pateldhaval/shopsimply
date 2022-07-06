@@ -1,15 +1,17 @@
+import { useSelector } from 'react-redux';
+
 import { CartProduct } from '@/app/types';
 import { CheckoutItem } from '@/components/CheckoutItem';
 import { Section } from '@/components/Section';
 import { SectionTitle } from '@/components/SectionTitle';
-import { useCartContext } from '@/utils/context/Cart.context';
+import { selectCartAmount, selectCartItems } from '@/store/cart/cart.selector';
 
-interface Props {
-	// children: React.ReactNode;
-}
+interface Props {}
 
 export const CheckoutList: React.FC<Props> = (props) => {
-	const { cartItems, cartAmount } = useCartContext();
+	const cartItems = useSelector(selectCartItems);
+	const cartAmount = useSelector(selectCartAmount);
+
 	return (
 		<Section>
 			<SectionTitle>Items to checkout</SectionTitle>

@@ -1,12 +1,14 @@
+import { useSelector } from 'react-redux';
+
 import { CategoryCard } from '@/components/CategoryCard';
 import { Section } from '@/components/Section';
 import { SectionTitle } from '@/components/SectionTitle';
-import { useShopContext } from '@/utils/context/Shop.context';
+import { selectCategoriesMap } from '@/store/categories/categories.selector';
 
 interface Props {}
 
 export const Categories: React.FC<Props> = (props) => {
-	const { categoriesMap } = useShopContext();
+	const categoriesMap = useSelector(selectCategoriesMap);
 
 	return (
 		<Section>

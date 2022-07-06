@@ -1,19 +1,23 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { CartProduct } from '@/app/types';
 import { Button } from '@/components/Button';
 import { CartItem } from '@/components/CartItem';
-import { useCartContext } from '@/utils/context/Cart.context';
+import { toggleCartOpen } from '@/store/cart/cart.action';
+import { selectCartAmount, selectCartItems } from '@/store/cart/cart.selector';
 
 interface Props {}
 
 export const CartDropdown: React.FC<Props> = (props) => {
-	const { cartItems, closeCart, cartAmount } = useCartContext();
+	const dispatch = useDispatch();
+	const cartItems = useSelector(selectCartItems);
+	const cartAmount = useSelector(selectCartAmount);
 	const navigate = useNavigate();
 
 	const handleGoToCheckout = () => {
 		navigate('checkout');
-		closeCart();
+		dispatch(toggleCartOpen(false));
 	};
 
 	return (
