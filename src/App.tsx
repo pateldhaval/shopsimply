@@ -2,16 +2,16 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import AppRouter from '@/routes/app.router';
-import { setCategoriesMap } from '@/store/categories/categories.action';
+import { fetchCategoriesAsync } from '@/store/categories/categories.action';
+import { useTypedDispatch } from '@/store/redux.types';
 import { setUserState } from '@/store/user/user.action';
 import {
 	createProfileFromAuth,
-	getCollectionAndDocuments,
 	onAuthStateChangedListener
 } from '@/utils/firebase/firebase.util';
 
 const App = () => {
-	const dispatch = useDispatch();
+	const dispatch = useTypedDispatch();
 
 	useEffect(() => {
 		// Listener for Authentication change (SignIn/SignUp or SignOut)
@@ -26,13 +26,9 @@ const App = () => {
 		return unsubscribe;
 	}, []);
 
+	// Get categories data
 	useEffect(() => {
-		const getCategoriesMap = async () => {
-			const categoriesData = await getCollectionAndDocuments('categories');
-			dispatch(setCategoriesMap(categoriesData));
-		};
-
-		getCategoriesMap();
+		dispatch(fetchCategoriesAsync());
 	}, []);
 
 	return <AppRouter />;

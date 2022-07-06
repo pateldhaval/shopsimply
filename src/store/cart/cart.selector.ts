@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { CartProduct } from '@/app/types';
 
-import { RootState } from '../store';
+import { RootState } from '../redux.types';
 import { CartState } from './cart.types';
 
 // Initial data access from state
