@@ -18,7 +18,7 @@ export const Header: React.FC<Props> = (props) => {
 	};
 
 	return (
-		<header className='py-6 border-b'>
+		<header className='flex h-16 w-full sticky top-0 z-50 border-b bg-white'>
 			<div className='container relative flex justify-between items-center'>
 				<div>
 					<Link to='/' className='font-bold uppercase'>
