@@ -13,7 +13,9 @@ const persistConfig = {
 	storage: storage,
 	// Persist exceptions
 	// User state comes from AuthState Listener so no need to persist with storage
-	blacklist: ['user']
+	// blacklist: ['user']
+	// We only need cart to persist
+	whitelist: ['cart']
 };
 
 // New persisted reducer derived from rootReducer with config provided
