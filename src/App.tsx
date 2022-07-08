@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import AppRouter from '@/routes/app.router';
-import { fetchCategoriesAsync } from '@/store/categories/categories.action';
+import { fetchCategoriesStart } from '@/store/categories/categories.action';
 import { useTypedDispatch } from '@/store/redux.types';
 import { setUserState } from '@/store/user/user.action';
 import {
@@ -28,7 +28,7 @@ const App = () => {
 
 	// Get categories data
 	useEffect(() => {
-		dispatch(fetchCategoriesAsync());
+		dispatch(fetchCategoriesStart());
 	}, []);
 
 	return <AppRouter />;

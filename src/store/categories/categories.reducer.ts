@@ -7,7 +7,7 @@ const initialState: CategoriesState = {
 };
 
 export const categoriesReducer = (state = initialState, action: any) => {
-	console.log(action);
+	// console.log(action);
 
 	switch (action.type) {
 		case CategoriesActionTypes.FetchStart:

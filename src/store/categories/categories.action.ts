@@ -1,8 +1,7 @@
 import { Category } from '@/app/types';
-import { getCollectionAndDocuments } from '@/utils/firebase/firebase.util';
 import { actionCreator } from '@/utils/redux/redux.utils';
 
-import { TypedDispatch } from '../redux.types';
+// import { TypedDispatch } from '../redux.types';
 import { CategoriesActionTypes } from './categories.types';
 
 // Actions
@@ -16,12 +15,12 @@ export const fetchCategoriesFailed = (error: any) =>
 	actionCreator(CategoriesActionTypes.FetchFailed, error);
 
 // Thunk Actions
-export const fetchCategoriesAsync = () => async (dispatch: TypedDispatch) => {
-	dispatch(fetchCategoriesStart());
-	try {
-		const categoriesData = await getCollectionAndDocuments('categories');
-		dispatch(fetchCategoriesSuccess(categoriesData));
-	} catch (error) {
-		dispatch(fetchCategoriesFailed(error));
-	}
-};
+// export const fetchCategoriesAsync = () => async (dispatch: TypedDispatch) => {
+// 	dispatch(fetchCategoriesStart());
+// 	try {
+// 		const categoriesData = await getCollectionAndDocuments('categories');
+// 		dispatch(fetchCategoriesSuccess(categoriesData));
+// 	} catch (error) {
+// 		dispatch(fetchCategoriesFailed(error));
+// 	}
+// };

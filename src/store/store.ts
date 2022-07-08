@@ -2,9 +2,15 @@ import { applyMiddleware, legacy_createStore as createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
+import { rootSaga } from './root-saga';
 import { rootReducer } from './root.reducer';
+
+// ====================================================
+// Persist
+// ====================================================
 
 const persistConfig = {
 	// To persist all states
@@ -21,13 +27,30 @@ const persistConfig = {
 // New persisted reducer derived from rootReducer with config provided
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middleware = [thunk];
+// ====================================================
+// Middleware
+// ====================================================
 
+// Init saga middleware
+const sagaMiddleware = createSagaMiddleware();
+
+// list of middleware to use with store
+const middleware = [
+	// thunk
+	sagaMiddleware
+];
+
+// ====================================================
+// Store with persist
+// ====================================================
 // Passing here persistedReducer instead of rootReducer
 export const store = createStore(
 	persistedReducer,
 	composeWithDevTools(applyMiddleware(...middleware))
 );
+
+// Tell saga middleware to run root saga
+sagaMiddleware.run(rootSaga);
 
 // Persisted store derived from store
 export const persistor = persistStore(store);
