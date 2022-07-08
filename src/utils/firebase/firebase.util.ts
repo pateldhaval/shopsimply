@@ -82,8 +82,22 @@ export const signInAuthUserWithEmailAndPassword = async (
 export const signOutAuthUser = () => signOut(auth);
 
 // Auth state change event listener
-export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
-	onAuthStateChanged(auth, callback);
+// export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
+// 	onAuthStateChanged(auth, callback);
+
+// Get authenticated user
+export const getAuthUser = () => {
+	return new Promise((resolve, reject) => {
+		const unsubscribe = onAuthStateChanged(
+			auth,
+			(authUser) => {
+				unsubscribe();
+				resolve(authUser);
+			},
+			reject
+		);
+	});
+};
 
 // =================================================================================
 // Other firestore utilities

@@ -3,27 +3,24 @@ import { useDispatch } from 'react-redux';
 
 import AppRouter from '@/routes/app.router';
 import { fetchCategoriesStart } from '@/store/categories/categories.action';
-import { useTypedDispatch } from '@/store/redux.types';
-import { setUserState } from '@/store/user/user.action';
 import {
 	createProfileFromAuth,
-	onAuthStateChangedListener
+	getAuthUser
 } from '@/utils/firebase/firebase.util';
 
+import { setUserState } from './store/user/user.action';
+
 const App = () => {
-	const dispatch = useTypedDispatch();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		// Listener for Authentication change (SignIn/SignUp or SignOut)
-		const unsubscribe = onAuthStateChangedListener((user) => {
-			if (user) {
+		getAuthUser().then((authUser: any) => {
+			if (authUser) {
 				// Separate entry to profile doc/table when new user is authenticated
-				createProfileFromAuth(user);
+				createProfileFromAuth(authUser);
 			}
-			dispatch(setUserState(user!));
+			dispatch(setUserState(authUser));
 		});
-
-		return unsubscribe;
 	}, []);
 
 	// Get categories data
