@@ -14,6 +14,7 @@ export const userReducer = (state = initialState, action: any) => {
 				profile: action.payload
 			};
 		case UserActionTypes.SetSignInFailed:
+		case UserActionTypes.SetSignUpFailed:
 		case UserActionTypes.SetSignOutFailed:
 			return {
 				...state,

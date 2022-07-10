@@ -1,13 +1,11 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { SignUpFormFields } from '@/app/types';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Section } from '@/components/Section';
-import {
-	createAuthUserWithEmailAndPassword,
-	createProfileFromAuth
-} from '@/utils/firebase/firebase.util';
+import { setSignUpStart } from '@/store/user/user.action';
 
 const initialFormFields: SignUpFormFields = {
 	displayName: '',
@@ -21,6 +19,7 @@ interface Props {
 }
 
 export const Signup: React.FC<Props> = (props) => {
+	const dispatch = useDispatch();
 	const [formFields, setFormFields] = useState(initialFormFields);
 	const { displayName, email, password, confirmPassword } = formFields;
 
@@ -33,16 +32,8 @@ export const Signup: React.FC<Props> = (props) => {
 		}
 
 		try {
-			const response = await createAuthUserWithEmailAndPassword(
-				email,
-				password
-			);
-			// console.log(response?.user);
-			await createProfileFromAuth(response?.user!, {
-				// Additional information
-				displayName: displayName
-			});
-			alert('User created successfully.');
+			dispatch(setSignUpStart({ email, password, displayName }));
+			console.log('User created successfully.');
 
 			// Reset from
 			handleReset();

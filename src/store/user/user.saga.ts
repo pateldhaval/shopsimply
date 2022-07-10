@@ -2,6 +2,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { FireUser } from '@/app/types';
 import {
+	createAuthUserWithEmailAndPassword,
 	createProfileFromAuth,
 	getAuthUser,
 	signInAuthUserWithEmailAndPassword,
@@ -13,18 +14,48 @@ import {
 	setSignInFailed,
 	setSignInSuccess,
 	setSignOutFailed,
-	setSignOutSuccess
+	setSignOutSuccess,
+	setSignUpFailed,
+	setSignUpSuccess
 } from './user.action';
 import { UserActionTypes } from './user.types';
 
-export function* getUserProfile(user: FireUser): any {
+export function* getUserProfile(user: FireUser, additionalInfo = {}): any {
 	try {
-		const profileSnapshot = yield call(createProfileFromAuth, user);
+		const profileSnapshot = yield call(
+			createProfileFromAuth,
+			user,
+			additionalInfo
+		);
 		yield put(
 			setSignInSuccess({ id: profileSnapshot.id, ...profileSnapshot.data() })
 		);
 	} catch (error) {
 		yield put(setSignInFailed(error));
+	}
+}
+
+export function* signUp(action: any): any {
+	try {
+		const { email, password, displayName } = action.payload;
+		const { user } = yield call(
+			createAuthUserWithEmailAndPassword,
+			email,
+			password
+		);
+
+		yield put(setSignUpSuccess(user, { displayName }));
+	} catch (error) {
+		yield put(setSignUpFailed(error));
+	}
+}
+
+export function* signInAfterSignUp(action: any): any {
+	try {
+		const { user, additionalInfo } = action.payload;
+		yield call(getUserProfile, user, additionalInfo);
+	} catch (error) {
+		yield put(setSignUpFailed(error));
 	}
 }
 
@@ -62,13 +93,20 @@ export function* checkUserAuthenticated(): any {
 }
 
 export function* signOut(): any {
-	console.log('signOut');
 	try {
 		yield call(signOutAuthUser);
 		yield put(setSignOutSuccess());
 	} catch (error) {
 		yield put(setSignOutFailed(error));
 	}
+}
+
+export function* onSignUpStart() {
+	yield takeLatest(UserActionTypes.SetSignUpStart, signUp);
+}
+
+export function* onSignUpSuccess() {
+	yield takeLatest(UserActionTypes.SetSignUpSuccess, signInAfterSignUp);
 }
 
 export function* onSignInWithEmail() {
@@ -90,8 +128,10 @@ export function* onSignOut() {
 export function* userSaga() {
 	yield all([
 		call(onCheckAuthUser),
-		call(onSignInWithGoogle),
+		call(onSignUpStart),
+		call(onSignUpSuccess),
 		call(onSignInWithEmail),
+		call(onSignInWithGoogle),
 		call(onSignOut)
 	]);
 }
