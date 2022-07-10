@@ -13,7 +13,7 @@ export interface CategoriesState {
 
 // Action types
 export const enum CategoriesActionTypes {
-	FetchStart = 'FetchStart',
-	FetchSuccess = 'FetchSuccess',
-	FetchFailed = 'FetchFailed'
+	FetchStart = 'categories/FetchStart',
+	FetchSuccess = 'categories/FetchSuccess',
+	FetchFailed = 'categories/FetchFailed'
 }

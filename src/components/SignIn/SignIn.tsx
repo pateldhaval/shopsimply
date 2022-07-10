@@ -22,11 +22,12 @@ export const SignIn: React.FC<Props> = (props) => {
 	const [formFields, setFormFields] = useState(initialFormFields);
 	const { email, password } = formFields;
 
-	const signInWithGoogle = async () => {
+	const handleSignInWithGoogle = () => {
 		try {
 			dispatch(setGoogleSignInStart());
 			console.log('Logged in successfully.');
 		} catch (error: any) {
+			// TODO: need to handle this other way around
 			switch (error.code) {
 				case 'auth/popup-closed-by-user':
 					console.log('Oops!! Popup closed by user without login');
@@ -38,16 +39,17 @@ export const SignIn: React.FC<Props> = (props) => {
 		}
 	};
 
-	const handleSubmit = async (event: any) => {
+	const handleSignIn = (event: any) => {
 		event.preventDefault();
 
 		try {
 			dispatch(setEmailSignInStart({ email, password }));
-			console.log('Signed in successfully.');
+			// console.log('Signed in successfully.');
 
 			// Reset form
 			handleReset();
 		} catch (error: any) {
+			// TODO: need to handle this other way around
 			switch (error.code) {
 				case 'auth/user-not-found':
 					alert('Oops!! User not found');
@@ -73,7 +75,7 @@ export const SignIn: React.FC<Props> = (props) => {
 
 	return (
 		<Section>
-			<form onSubmit={handleSubmit} className='space-y-4'>
+			<form onSubmit={handleSignIn} className='space-y-4'>
 				<Input
 					label='Email'
 					type='email'
@@ -92,7 +94,7 @@ export const SignIn: React.FC<Props> = (props) => {
 				/>
 				<div className='space-x-4'>
 					<Button>Submit</Button>
-					<Button type='button' onClick={signInWithGoogle}>
+					<Button type='button' onClick={handleSignInWithGoogle}>
 						SignIn with Google
 					</Button>
 				</div>

@@ -14,16 +14,14 @@ const initialFormFields: SignUpFormFields = {
 	confirmPassword: ''
 };
 
-interface Props {
-	// children: React.ReactNode;
-}
+interface Props {}
 
 export const Signup: React.FC<Props> = (props) => {
 	const dispatch = useDispatch();
 	const [formFields, setFormFields] = useState(initialFormFields);
 	const { displayName, email, password, confirmPassword } = formFields;
 
-	const handleSubmit = async (event: any) => {
+	const handleSubmit = (event: any) => {
 		event.preventDefault();
 
 		if (password !== confirmPassword) {
@@ -33,11 +31,12 @@ export const Signup: React.FC<Props> = (props) => {
 
 		try {
 			dispatch(setSignUpStart({ email, password, displayName }));
-			console.log('User created successfully.');
+			// console.log('User created successfully.');
 
 			// Reset from
-			handleReset();
+			// handleReset();
 		} catch (error: any) {
+			// TODO: need to handle this other way around
 			if (error.code === 'auth/email-already-in-use') {
 				alert('Oops!! Email is already in use');
 			}

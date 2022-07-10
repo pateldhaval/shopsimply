@@ -6,13 +6,17 @@ import { setSignOutStart } from '@/store/user/user.action';
 
 interface Props {
 	profile: Profile;
+	onSignOut: () => void;
 }
 
 export const ProfileDropdown: React.FC<Props> = (props) => {
 	const { displayName } = props.profile;
 	const dispatch = useDispatch();
 
-	const handleSignOut = () => dispatch(setSignOutStart());
+	const handleSignOut = () => {
+		dispatch(setSignOutStart());
+		props.onSignOut();
+	};
 
 	return (
 		<div className='absolute top-14 right-0 z-10 w-40 p-4 bg-white shadow-md'>

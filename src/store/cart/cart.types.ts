@@ -7,6 +7,6 @@ export interface CartState {
 
 // Action types
 export const enum CartActionTypes {
-	SetCartUpdate = 'SetCartUpdate',
-	SetIsCartOpen = 'SetIsCartOpen'
+	SetCartUpdate = 'cart/SetCartUpdate',
+	SetIsCartOpen = 'cart/SetIsCartOpen'
 }
