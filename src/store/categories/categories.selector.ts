@@ -2,15 +2,20 @@ import { createSelector } from 'reselect';
 
 import { Category } from '@/app/types';
 
-import { RootState } from '../store';
+import { RootState } from '../redux.types';
 
 // Initial data access from state
 const selectCategoriesState = (state: RootState) => state.categories;
 
-// Memoize (Cache) categoriesData from state
-const selectCategoriesData = createSelector(
+export const selectCategoriesLoading = createSelector(
 	[selectCategoriesState],
-	(categoriesSlice) => categoriesSlice.categoriesData
+	(categories) => categories.loading
+);
+
+// Memoize (Cache) categoriesData from state
+export const selectCategoriesData = createSelector(
+	[selectCategoriesState],
+	(categories) => categories.categoriesData
 );
 
 // Memoize (Cache) categoriesMap from categoriesData

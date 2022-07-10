@@ -6,19 +6,23 @@ import { CartDropdown } from '@/components/CartDropdown';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
 import { toggleCartOpen } from '@/store/cart/cart.action';
 import { selectCartQty, selectIsCartOpen } from '@/store/cart/cart.selector';
-import { selectAuthUser } from '@/store/user/user.selector';
+import { selectProfile } from '@/store/user/user.selector';
 
 interface Props {}
 
 export const Header: React.FC<Props> = (props) => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
 	const dispatch = useDispatch();
-	const authUser = useSelector(selectAuthUser);
+	const profile = useSelector(selectProfile);
 	const cartQty = useSelector(selectCartQty);
 	const isCartOpen = useSelector(selectIsCartOpen);
 
 	const handleCartOpen = () => {
 		dispatch(toggleCartOpen(!isCartOpen));
+	};
+
+	const handleOnSignOut = () => {
+		setIsProfileOpen(false);
 	};
 
 	return (
@@ -31,12 +35,17 @@ export const Header: React.FC<Props> = (props) => {
 				</div>
 				<div className='space-x-6'>
 					<Link to='/shop'>Shop</Link>
-					{authUser ? (
+					{profile ? (
 						<span className='relative'>
 							<button onClick={() => setIsProfileOpen(!isProfileOpen)}>
 								Profile
 							</button>
-							{isProfileOpen && <ProfileDropdown authUser={authUser} />}
+							{isProfileOpen && (
+								<ProfileDropdown
+									profile={profile}
+									onSignOut={handleOnSignOut}
+								/>
+							)}
 						</span>
 					) : (
 						<Link to='/auth'>Sign In</Link>

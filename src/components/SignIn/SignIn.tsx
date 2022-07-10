@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { SignInFormFields } from '@/app/types';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Section } from '@/components/Section';
 import {
-	signInAuthUserWithEmailAndPassword,
-	signInWithGooglePopup
-} from '@/utils/firebase/firebase.util';
+	setEmailSignInStart,
+	setGoogleSignInStart
+} from '@/store/user/user.action';
 
 const initialFormFields: SignInFormFields = {
 	email: '',
@@ -17,14 +18,16 @@ const initialFormFields: SignInFormFields = {
 interface Props {}
 
 export const SignIn: React.FC<Props> = (props) => {
+	const dispatch = useDispatch();
 	const [formFields, setFormFields] = useState(initialFormFields);
 	const { email, password } = formFields;
 
-	const signInWithGoogle = async () => {
+	const handleSignInWithGoogle = () => {
 		try {
-			await signInWithGooglePopup();
-			alert('Logged in successfully.');
+			dispatch(setGoogleSignInStart());
+			console.log('Logged in successfully.');
 		} catch (error: any) {
+			// TODO: need to handle this other way around
 			switch (error.code) {
 				case 'auth/popup-closed-by-user':
 					console.log('Oops!! Popup closed by user without login');
@@ -36,17 +39,17 @@ export const SignIn: React.FC<Props> = (props) => {
 		}
 	};
 
-	const handleSubmit = async (event: any) => {
+	const handleSignIn = (event: any) => {
 		event.preventDefault();
 
 		try {
-			await signInAuthUserWithEmailAndPassword(email, password);
-			// console.log(response);
-			alert('Signed in successfully.');
+			dispatch(setEmailSignInStart({ email, password }));
+			// console.log('Signed in successfully.');
 
-			// Reset from
+			// Reset form
 			handleReset();
 		} catch (error: any) {
+			// TODO: need to handle this other way around
 			switch (error.code) {
 				case 'auth/user-not-found':
 					alert('Oops!! User not found');
@@ -72,7 +75,7 @@ export const SignIn: React.FC<Props> = (props) => {
 
 	return (
 		<Section>
-			<form onSubmit={handleSubmit} className='space-y-4'>
+			<form onSubmit={handleSignIn} className='space-y-4'>
 				<Input
 					label='Email'
 					type='email'
@@ -91,7 +94,7 @@ export const SignIn: React.FC<Props> = (props) => {
 				/>
 				<div className='space-x-4'>
 					<Button>Submit</Button>
-					<Button type='button' onClick={signInWithGoogle}>
+					<Button type='button' onClick={handleSignInWithGoogle}>
 						SignIn with Google
 					</Button>
 				</div>
