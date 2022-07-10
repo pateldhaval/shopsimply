@@ -13,7 +13,7 @@ interface Props {}
 export const Header: React.FC<Props> = (props) => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
 	const dispatch = useDispatch();
-	const authUser = useSelector(selectAuthUser);
+	const profile = useSelector(selectAuthUser);
 	const cartQty = useSelector(selectCartQty);
 	const isCartOpen = useSelector(selectIsCartOpen);
 
@@ -31,12 +31,12 @@ export const Header: React.FC<Props> = (props) => {
 				</div>
 				<div className='space-x-6'>
 					<Link to='/shop'>Shop</Link>
-					{authUser ? (
+					{profile ? (
 						<span className='relative'>
 							<button onClick={() => setIsProfileOpen(!isProfileOpen)}>
 								Profile
 							</button>
-							{isProfileOpen && <ProfileDropdown authUser={authUser} />}
+							{isProfileOpen && <ProfileDropdown profile={profile} />}
 						</span>
 					) : (
 						<Link to='/auth'>Sign In</Link>

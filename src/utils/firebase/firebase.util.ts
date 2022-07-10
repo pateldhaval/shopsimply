@@ -52,6 +52,8 @@ export const createProfileFromAuth = async (
 			console.error(error);
 		}
 	}
+
+	return profileSnapshot;
 };
 
 // SignIn via Google Popup
