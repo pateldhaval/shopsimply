@@ -39,7 +39,7 @@ export const SignIn: React.FC<Props> = (props) => {
 		}
 	};
 
-	const handleSignIn = (event: any) => {
+	const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
 		try {
@@ -64,7 +64,7 @@ export const SignIn: React.FC<Props> = (props) => {
 		}
 	};
 
-	const handleChange = (event: any) => {
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 		setFormFields({ ...formFields, [name]: value });
 	};

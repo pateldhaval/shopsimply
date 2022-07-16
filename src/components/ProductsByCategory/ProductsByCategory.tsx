@@ -28,7 +28,7 @@ export const ProductsByCategory: React.FC<Props> = (props) => {
 			</SectionTitle>
 			<div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10'>
 				{products &&
-					products.map((product: any) => (
+					products.map((product: Product) => (
 						<ProductCard key={product.id} product={product} />
 					))}
 			</div>

@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 
+import { Product } from '@/app/types';
 import { ProductCard } from '@/components/ProductCard';
 import { SectionTitle } from '@/components/SectionTitle';
 
 interface Props {
 	title: string;
-	products: any[];
+	products: Product[];
 }
 
 export const CategoryPreviewItem: React.FC<Props> = (props) => {

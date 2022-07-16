@@ -21,7 +21,7 @@ export const Signup: React.FC<Props> = (props) => {
 	const [formFields, setFormFields] = useState(initialFormFields);
 	const { displayName, email, password, confirmPassword } = formFields;
 
-	const handleSubmit = (event: any) => {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
 		if (password !== confirmPassword) {
@@ -44,7 +44,7 @@ export const Signup: React.FC<Props> = (props) => {
 		}
 	};
 
-	const handleChange = (event: any) => {
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 		setFormFields({ ...formFields, [name]: value });
 	};
