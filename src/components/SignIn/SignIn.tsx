@@ -5,10 +5,7 @@ import { SignInFormFields } from '@/app/types';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Section } from '@/components/Section';
-import {
-	setEmailSignInStart,
-	setGoogleSignInStart
-} from '@/store/user/user.action';
+import { setGoogleSignInStart, setSignInStart } from '@/store/user/user.slice';
 
 const initialFormFields: SignInFormFields = {
 	email: '',
@@ -43,7 +40,7 @@ export const SignIn: React.FC<Props> = (props) => {
 		event.preventDefault();
 
 		try {
-			dispatch(setEmailSignInStart({ email, password }));
+			dispatch(setSignInStart({ email, password } as any));
 			// console.log('Signed in successfully.');
 
 			// Reset form

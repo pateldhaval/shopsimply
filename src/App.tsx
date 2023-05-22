@@ -3,17 +3,17 @@ import { useDispatch } from 'react-redux';
 
 import AppRouter from '@/routes/app.router';
 import { fetchCategoriesStart } from '@/store/categories/categories.action';
-import { checkAuthUser } from '@/store/user/user.action';
+import { checkAuthUser } from '@/store/user/user.slice';
 
 const App = () => {
 	const dispatch = useDispatch();
 
-	// Check authenticated user
+	// [Check authenticated user]
 	useEffect(() => {
 		dispatch(checkAuthUser());
 	}, []);
 
-	// Get categories data
+	// [Get categories data]
 	useEffect(() => {
 		dispatch(fetchCategoriesStart());
 	}, []);

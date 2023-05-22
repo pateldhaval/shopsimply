@@ -5,7 +5,7 @@ import { SignUpFormFields } from '@/app/types';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Section } from '@/components/Section';
-import { setSignUpStart } from '@/store/user/user.action';
+import { setSignUpStart } from '@/store/user/user.slice';
 
 const initialFormFields: SignUpFormFields = {
 	displayName: '',
@@ -30,7 +30,7 @@ export const Signup: React.FC<Props> = (props) => {
 		}
 
 		try {
-			dispatch(setSignUpStart({ email, password, displayName }));
+			dispatch(setSignUpStart({ email, password, displayName } as any));
 			// console.log('User created successfully.');
 
 			// Reset from
