@@ -11,42 +11,35 @@ import {
 } from '@/utils/firebase/firebase.util';
 
 import {
-	setSignInFailed,
+	checkAuthUser,
+	setAuthFailed,
+	setGoogleSignInStart,
+	setSignInStart,
 	setSignInSuccess,
-	setSignOutFailed,
+	setSignOutStart,
 	setSignOutSuccess,
-	setSignUpFailed,
+	setSignUpStart,
 	setSignUpSuccess
-} from './user.action';
-import { UserActionTypes } from './user.types';
+} from './user.slice';
 
 export function* getUserProfile(user: FireUser, additionalInfo = {}): any {
 	try {
-		const profileSnapshot = yield call(
-			createProfileFromAuth,
-			user,
-			additionalInfo
-		);
-		yield put(
-			setSignInSuccess({ id: profileSnapshot.id, ...profileSnapshot.data() })
-		);
-	} catch (error) {
-		yield put(setSignInFailed(error));
+		const profileSnapshot = yield call(createProfileFromAuth, user, additionalInfo);
+		yield put(setSignInSuccess({ id: profileSnapshot.id, ...profileSnapshot.data() }));
+	} catch (error: any) {
+		yield put(setAuthFailed(error));
 	}
 }
 
 export function* signUp(action: any): any {
 	try {
 		const { email, password, displayName } = action.payload;
-		const { user } = yield call(
-			createAuthUserWithEmailAndPassword,
-			email,
-			password
-		);
+		const { user } = yield call(createAuthUserWithEmailAndPassword, email, password);
 
-		yield put(setSignUpSuccess(user, { displayName }));
-	} catch (error) {
-		yield put(setSignUpFailed(error));
+		const signUpData: any = { user, additionalInfo: { displayName } };
+		yield put(setSignUpSuccess(signUpData));
+	} catch (error: any) {
+		yield put(setAuthFailed(error));
 	}
 }
 
@@ -54,22 +47,18 @@ export function* signInAfterSignUp(action: any): any {
 	try {
 		const { user, additionalInfo } = action.payload;
 		yield call(getUserProfile, user, additionalInfo);
-	} catch (error) {
-		yield put(setSignUpFailed(error));
+	} catch (error: any) {
+		yield put(setAuthFailed(error));
 	}
 }
 
 export function* signInWithEmail(action: any): any {
 	const { email, password } = action.payload;
 	try {
-		const { user } = yield call(
-			signInAuthUserWithEmailAndPassword,
-			email,
-			password
-		);
+		const { user } = yield call(signInAuthUserWithEmailAndPassword, email, password);
 		yield call(getUserProfile, user);
-	} catch (error) {
-		yield put(setSignInFailed(error));
+	} catch (error: any) {
+		yield put(setAuthFailed(error));
 	}
 }
 
@@ -77,8 +66,8 @@ export function* signInWithGoogle(): any {
 	try {
 		const { user } = yield call(signInWithGooglePopup);
 		yield call(getUserProfile, user);
-	} catch (error) {
-		yield put(setSignInFailed(error));
+	} catch (error: any) {
+		yield put(setAuthFailed(error));
 	}
 }
 
@@ -87,8 +76,8 @@ export function* checkUserAuthenticated(): any {
 		const user = yield call(getAuthUser);
 		if (!user) return;
 		yield call(getUserProfile, user);
-	} catch (error) {
-		yield put(setSignInFailed(error));
+	} catch (error: any) {
+		yield put(setAuthFailed(error));
 	}
 }
 
@@ -96,33 +85,33 @@ export function* signOut(): any {
 	try {
 		yield call(signOutAuthUser);
 		yield put(setSignOutSuccess());
-	} catch (error) {
-		yield put(setSignOutFailed(error));
+	} catch (error: any) {
+		yield put(setAuthFailed(error));
 	}
 }
 
 export function* onSignUpStart() {
-	yield takeLatest(UserActionTypes.SetSignUpStart, signUp);
+	yield takeLatest(setSignUpStart, signUp);
 }
 
 export function* onSignUpSuccess() {
-	yield takeLatest(UserActionTypes.SetSignUpSuccess, signInAfterSignUp);
+	yield takeLatest(setSignUpSuccess, signInAfterSignUp);
 }
 
 export function* onSignInWithEmail() {
-	yield takeLatest(UserActionTypes.SetEmailSignInStart, signInWithEmail);
+	yield takeLatest(setSignInStart, signInWithEmail);
 }
 
 export function* onSignInWithGoogle() {
-	yield takeLatest(UserActionTypes.SetGoogleSignInStart, signInWithGoogle);
+	yield takeLatest(setGoogleSignInStart, signInWithGoogle);
 }
 
 export function* onCheckAuthUser() {
-	yield takeLatest(UserActionTypes.CheckAuthUser, checkUserAuthenticated);
+	yield takeLatest(checkAuthUser, checkUserAuthenticated);
 }
 
 export function* onSignOut() {
-	yield takeLatest(UserActionTypes.SetSignOutStart, signOut);
+	yield takeLatest(setSignOutStart, signOut);
 }
 
 export function* userSaga() {

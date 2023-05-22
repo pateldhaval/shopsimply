@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 import { CartDropdown } from '@/components/CartDropdown';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
-import { toggleCartOpen } from '@/store/cart/cart.action';
 import { selectCartQty, selectIsCartOpen } from '@/store/cart/cart.selector';
+import { toggleCartOpen } from '@/store/cart/cart.slice';
 import { selectProfile } from '@/store/user/user.selector';
 
 interface Props {}
@@ -37,23 +37,14 @@ export const Header: React.FC<Props> = (props) => {
 					<Link to='/shop'>Shop</Link>
 					{profile ? (
 						<span className='relative'>
-							<button onClick={() => setIsProfileOpen(!isProfileOpen)}>
-								Profile
-							</button>
-							{isProfileOpen && (
-								<ProfileDropdown
-									profile={profile}
-									onSignOut={handleOnSignOut}
-								/>
-							)}
+							<button onClick={() => setIsProfileOpen(!isProfileOpen)}>Profile</button>
+							{isProfileOpen && <ProfileDropdown profile={profile} onSignOut={handleOnSignOut} />}
 						</span>
 					) : (
 						<Link to='/auth'>Sign In</Link>
 					)}
 					<span className='relative'>
-						<button onClick={handleCartOpen}>
-							Cart {cartQty > 0 && `[${cartQty}]`}
-						</button>
+						<button onClick={handleCartOpen}>Cart {cartQty > 0 && `[${cartQty}]`}</button>
 						{isCartOpen && <CartDropdown />}
 					</span>
 				</div>

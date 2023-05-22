@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { CartProduct } from '@/app/types';
 import { Button } from '@/components/Button';
 import { CartItem } from '@/components/CartItem';
-import { toggleCartOpen } from '@/store/cart/cart.action';
 import { selectCartAmount, selectCartItems } from '@/store/cart/cart.selector';
+import { toggleCartOpen } from '@/store/cart/cart.slice';
 
 interface Props {}
 
@@ -37,9 +37,7 @@ export const CartDropdown: React.FC<Props> = (props) => {
 						</div>
 					</>
 				) : (
-					<div className='h-20 flex justify-center items-center'>
-						Cart is Empty
-					</div>
+					<div className='h-20 flex justify-center items-center'>Cart is Empty</div>
 				)}
 			</div>
 		</>

@@ -4,10 +4,7 @@ import { CategoryCard } from '@/components/CategoryCard';
 import { Section } from '@/components/Section';
 import { SectionTitle } from '@/components/SectionTitle';
 import { Spinner } from '@/components/Spinner';
-import {
-	selectCategoriesLoading,
-	selectCategoriesMap
-} from '@/store/categories/categories.selector';
+import { selectCategoriesLoading, selectCategoriesMap } from '@/store/categories/categories.selector';
 
 interface Props {}
 

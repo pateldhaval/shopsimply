@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { Product } from '@/app/types';
+import { CartProduct, Product } from '@/app/types';
 import { Button } from '@/components/Button';
-import { addToCart } from '@/store/cart/cart.action';
-import { selectCartItems } from '@/store/cart/cart.selector';
+import { addItemToCart } from '@/store/cart/cart.slice';
 
 interface Props {
 	product: Product;
@@ -11,10 +10,9 @@ interface Props {
 
 export const ProductCard: React.FC<Props> = (props) => {
 	const dispatch = useDispatch();
-	const cartItems = useSelector(selectCartItems);
 	const { name, imageUrl, price } = props.product;
 
-	const handleAddToCart = () => dispatch(addToCart(cartItems, props.product));
+	const handleAddToCart = () => dispatch(addItemToCart(props.product as CartProduct));
 
 	return (
 		<div

@@ -18,11 +18,7 @@ export const CategoriesPreview: React.FC<Props> = (props) => {
 					return (
 						category &&
 						Object.keys(category).length > 0 && (
-							<CategoryPreviewItem
-								key={title}
-								title={title}
-								products={category.products}
-							/>
+							<CategoryPreviewItem key={title} title={title} products={category.products} />
 						)
 					);
 				})}

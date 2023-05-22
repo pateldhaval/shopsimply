@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 
 import { Profile } from '@/app/types';
 import { Button } from '@/components/Button';
-import { setSignOutStart } from '@/store/user/user.action';
+import { setSignOutStart } from '@/store/user/user.slice';
 
 interface Props {
 	profile: Profile;

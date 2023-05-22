@@ -5,7 +5,7 @@ import { SignUpFormFields } from '@/app/types';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Section } from '@/components/Section';
-import { setSignUpStart } from '@/store/user/user.action';
+import { setSignUpStart } from '@/store/user/user.slice';
 
 const initialFormFields: SignUpFormFields = {
 	displayName: '',
@@ -21,7 +21,7 @@ export const Signup: React.FC<Props> = (props) => {
 	const [formFields, setFormFields] = useState(initialFormFields);
 	const { displayName, email, password, confirmPassword } = formFields;
 
-	const handleSubmit = (event: any) => {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
 		if (password !== confirmPassword) {
@@ -44,7 +44,7 @@ export const Signup: React.FC<Props> = (props) => {
 		}
 	};
 
-	const handleChange = (event: any) => {
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 		setFormFields({ ...formFields, [name]: value });
 	};
@@ -64,22 +64,8 @@ export const Signup: React.FC<Props> = (props) => {
 					value={displayName}
 					onChange={handleChange}
 				/>
-				<Input
-					label='Email'
-					type='email'
-					name='email'
-					required
-					value={email}
-					onChange={handleChange}
-				/>
-				<Input
-					label='Password'
-					type='password'
-					name='password'
-					required
-					value={password}
-					onChange={handleChange}
-				/>
+				<Input label='Email' type='email' name='email' required value={email} onChange={handleChange} />
+				<Input label='Password' type='password' name='password' required value={password} onChange={handleChange} />
 				<Input
 					label='Confirm Password'
 					type='password'
