@@ -73,22 +73,8 @@ export const SignIn: React.FC<Props> = (props) => {
 	return (
 		<Section>
 			<form onSubmit={handleSignIn} className='space-y-4'>
-				<Input
-					label='Email'
-					type='email'
-					name='email'
-					required
-					value={email}
-					onChange={handleChange}
-				/>
-				<Input
-					label='Password'
-					type='password'
-					name='password'
-					required
-					value={password}
-					onChange={handleChange}
-				/>
+				<Input label='Email' type='email' name='email' required value={email} onChange={handleChange} />
+				<Input label='Password' type='password' name='password' required value={password} onChange={handleChange} />
 				<div className='space-x-4'>
 					<Button>Submit</Button>
 					<Button type='button' onClick={handleSignInWithGoogle}>

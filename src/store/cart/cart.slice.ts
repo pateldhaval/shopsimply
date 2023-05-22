@@ -14,9 +14,7 @@ const initialState: CartState = {
 // [Add the cart functionality]
 const addToCart = (cartItems: CartProduct[], product: Product) => {
 	// [Find if cartItems contains a product]
-	const existingCartItem = cartItems.find(
-		(item: CartProduct) => item.id === product.id
-	);
+	const existingCartItem = cartItems.find((item: CartProduct) => item.id === product.id);
 
 	let newCartItems = [];
 	if (existingCartItem) {
@@ -35,16 +33,12 @@ const addToCart = (cartItems: CartProduct[], product: Product) => {
 // [Remove from the cart functionality]
 const removeWithZeroQty = (cartItems: CartProduct[], product: Product) => {
 	// [Find if cartItems contains a product]
-	const existingCartItem = cartItems.find(
-		(item: CartProduct) => item.id === product.id
-	);
+	const existingCartItem = cartItems.find((item: CartProduct) => item.id === product.id);
 
 	let newCartItems = [];
 	if (existingCartItem?.qty === 1) {
 		// [If only 1 qty, create new array with a removed item]
-		newCartItems = cartItems.filter(
-			(item: CartProduct) => item.id !== product.id
-		);
+		newCartItems = cartItems.filter((item: CartProduct) => item.id !== product.id);
 	} else {
 		// [Else, create new array with decremented qty]
 		newCartItems = cartItems.map((item: CartProduct) =>
@@ -57,9 +51,7 @@ const removeWithZeroQty = (cartItems: CartProduct[], product: Product) => {
 
 export const deleteFromCart = (cartItems: CartProduct[], product: Product) => {
 	// [New array with deleted item]
-	const newCartItems = cartItems.filter(
-		(item: CartProduct) => item.id !== product.id
-	);
+	const newCartItems = cartItems.filter((item: CartProduct) => item.id !== product.id);
 
 	return newCartItems;
 };
@@ -74,16 +66,10 @@ const cartSlice = createSlice({
 		addItemToCart: (state: CartState, action: PayloadAction<CartProduct>) => {
 			state.cartItems = addToCart(state.cartItems, action.payload);
 		},
-		removeItemWithZeroQty: (
-			state: CartState,
-			action: PayloadAction<CartProduct>
-		) => {
+		removeItemWithZeroQty: (state: CartState, action: PayloadAction<CartProduct>) => {
 			state.cartItems = removeWithZeroQty(state.cartItems, action.payload);
 		},
-		deleteItemFromCart: (
-			state: CartState,
-			action: PayloadAction<CartProduct>
-		) => {
+		deleteItemFromCart: (state: CartState, action: PayloadAction<CartProduct>) => {
 			state.cartItems = deleteFromCart(state.cartItems, action.payload);
 		},
 		toggleCartOpen: (state: CartState, action: PayloadAction<boolean>) => {
@@ -92,11 +78,6 @@ const cartSlice = createSlice({
 	}
 });
 
-export const {
-	addItemToCart,
-	removeItemWithZeroQty,
-	deleteItemFromCart,
-	toggleCartOpen
-} = cartSlice.actions;
+export const { addItemToCart, removeItemWithZeroQty, deleteItemFromCart, toggleCartOpen } = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;

@@ -25,9 +25,7 @@ export const CheckoutList: React.FC<Props> = (props) => {
 						</div>
 					</>
 				) : (
-					<div className='flex justify-center items-center'>
-						No items in cart to checkout
-					</div>
+					<div className='flex justify-center items-center'>No items in cart to checkout</div>
 				)}
 			</div>
 			{cartItems.length > 0 && (

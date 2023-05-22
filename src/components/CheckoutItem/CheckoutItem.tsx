@@ -1,11 +1,7 @@
 import { useDispatch } from 'react-redux';
 
 import { CartProduct } from '@/app/types';
-import {
-	addItemToCart,
-	deleteItemFromCart,
-	removeItemWithZeroQty
-} from '@/store/cart/cart.slice';
+import { addItemToCart, deleteItemFromCart, removeItemWithZeroQty } from '@/store/cart/cart.slice';
 
 interface Props {
 	cartItem: CartProduct;
@@ -28,10 +24,7 @@ export const CheckoutItem: React.FC<Props> = (props) => {
 				<div className='flex-grow text-xl space-y-2'>
 					<div className='flex justify-between items-center'>
 						<h3 className='font-bold'>{name}</h3>
-						<div
-							className='cursor-pointer text-2xl'
-							onClick={handleDeleteFromCart}
-						>
+						<div className='cursor-pointer text-2xl' onClick={handleDeleteFromCart}>
 							&times;
 						</div>
 					</div>
@@ -41,19 +34,11 @@ export const CheckoutItem: React.FC<Props> = (props) => {
 					<div className='flex justify-between items-center gap-10'>
 						<div className='space-x-4'>
 							<span>Qty:</span>
-							<span
-								className='cursor-pointer select-none'
-								title='Decrease quantity'
-								onClick={handleRemoveFromCart}
-							>
+							<span className='cursor-pointer select-none' title='Decrease quantity' onClick={handleRemoveFromCart}>
 								&#10094;
 							</span>
 							<span>{qty}</span>
-							<span
-								className='cursor-pointer select-none'
-								title='Increase quantity'
-								onClick={handleAddToCart}
-							>
+							<span className='cursor-pointer select-none' title='Increase quantity' onClick={handleAddToCart}>
 								&#10095;
 							</span>
 						</div>

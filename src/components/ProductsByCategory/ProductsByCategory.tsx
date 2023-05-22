@@ -23,14 +23,9 @@ export const ProductsByCategory: React.FC<Props> = (props) => {
 
 	return (
 		<Section>
-			<SectionTitle className='text-center'>
-				{category?.toUpperCase()}
-			</SectionTitle>
+			<SectionTitle className='text-center'>{category?.toUpperCase()}</SectionTitle>
 			<div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10'>
-				{products &&
-					products.map((product: Product) => (
-						<ProductCard key={product.id} product={product} />
-					))}
+				{products && products.map((product: Product) => <ProductCard key={product.id} product={product} />)}
 			</div>
 		</Section>
 	);

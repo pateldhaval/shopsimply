@@ -24,14 +24,8 @@ import {
 
 export function* getUserProfile(user: FireUser, additionalInfo = {}): any {
 	try {
-		const profileSnapshot = yield call(
-			createProfileFromAuth,
-			user,
-			additionalInfo
-		);
-		yield put(
-			setSignInSuccess({ id: profileSnapshot.id, ...profileSnapshot.data() })
-		);
+		const profileSnapshot = yield call(createProfileFromAuth, user, additionalInfo);
+		yield put(setSignInSuccess({ id: profileSnapshot.id, ...profileSnapshot.data() }));
 	} catch (error: any) {
 		yield put(setAuthFailed(error));
 	}
@@ -40,11 +34,7 @@ export function* getUserProfile(user: FireUser, additionalInfo = {}): any {
 export function* signUp(action: any): any {
 	try {
 		const { email, password, displayName } = action.payload;
-		const { user } = yield call(
-			createAuthUserWithEmailAndPassword,
-			email,
-			password
-		);
+		const { user } = yield call(createAuthUserWithEmailAndPassword, email, password);
 
 		const signUpData: any = { user, additionalInfo: { displayName } };
 		yield put(setSignUpSuccess(signUpData));
@@ -65,11 +55,7 @@ export function* signInAfterSignUp(action: any): any {
 export function* signInWithEmail(action: any): any {
 	const { email, password } = action.payload;
 	try {
-		const { user } = yield call(
-			signInAuthUserWithEmailAndPassword,
-			email,
-			password
-		);
+		const { user } = yield call(signInAuthUserWithEmailAndPassword, email, password);
 		yield call(getUserProfile, user);
 	} catch (error: any) {
 		yield put(setAuthFailed(error));

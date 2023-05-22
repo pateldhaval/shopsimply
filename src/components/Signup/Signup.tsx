@@ -64,22 +64,8 @@ export const Signup: React.FC<Props> = (props) => {
 					value={displayName}
 					onChange={handleChange}
 				/>
-				<Input
-					label='Email'
-					type='email'
-					name='email'
-					required
-					value={email}
-					onChange={handleChange}
-				/>
-				<Input
-					label='Password'
-					type='password'
-					name='password'
-					required
-					value={password}
-					onChange={handleChange}
-				/>
+				<Input label='Email' type='email' name='email' required value={email} onChange={handleChange} />
+				<Input label='Password' type='password' name='password' required value={password} onChange={handleChange} />
 				<Input
 					label='Confirm Password'
 					type='password'

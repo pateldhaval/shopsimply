@@ -37,9 +37,7 @@ export const CartDropdown: React.FC<Props> = (props) => {
 						</div>
 					</>
 				) : (
-					<div className='h-20 flex justify-center items-center'>
-						Cart is Empty
-					</div>
+					<div className='h-20 flex justify-center items-center'>Cart is Empty</div>
 				)}
 			</div>
 		</>
