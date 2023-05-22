@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { CartProduct } from '@/app/types';
 import { Button } from '@/components/Button';
 import { CartItem } from '@/components/CartItem';
-import { toggleCartOpen } from '@/store/cart/cart.action';
 import { selectCartAmount, selectCartItems } from '@/store/cart/cart.selector';
+import { toggleCartOpen } from '@/store/cart/cart.slice';
 
 interface Props {}
 
@@ -17,7 +17,7 @@ export const CartDropdown: React.FC<Props> = (props) => {
 
 	const handleGoToCheckout = () => {
 		navigate('checkout');
-		dispatch(toggleCartOpen(false));
+		dispatch(toggleCartOpen(false as any));
 	};
 
 	return (

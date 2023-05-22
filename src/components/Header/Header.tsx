@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 import { CartDropdown } from '@/components/CartDropdown';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
-import { toggleCartOpen } from '@/store/cart/cart.action';
 import { selectCartQty, selectIsCartOpen } from '@/store/cart/cart.selector';
+import { toggleCartOpen } from '@/store/cart/cart.slice';
 import { selectProfile } from '@/store/user/user.selector';
 
 interface Props {}
@@ -18,7 +18,7 @@ export const Header: React.FC<Props> = (props) => {
 	const isCartOpen = useSelector(selectIsCartOpen);
 
 	const handleCartOpen = () => {
-		dispatch(toggleCartOpen(!isCartOpen));
+		dispatch(toggleCartOpen(!isCartOpen as any));
 	};
 
 	const handleOnSignOut = () => {
