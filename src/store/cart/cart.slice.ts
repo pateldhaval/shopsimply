@@ -1,5 +1,5 @@
 import { CartProduct, Product } from '@/app/types';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { CartState } from './cart.types';
 
@@ -71,16 +71,22 @@ const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		addItemToCart: (state: CartState, action: any) => {
+		addItemToCart: (state: CartState, action: PayloadAction<CartProduct>) => {
 			state.cartItems = addToCart(state.cartItems, action.payload);
 		},
-		removeItemWithZeroQty: (state: CartState, action: any) => {
+		removeItemWithZeroQty: (
+			state: CartState,
+			action: PayloadAction<CartProduct>
+		) => {
 			state.cartItems = removeWithZeroQty(state.cartItems, action.payload);
 		},
-		deleteItemFromCart: (state: CartState, action: any) => {
+		deleteItemFromCart: (
+			state: CartState,
+			action: PayloadAction<CartProduct>
+		) => {
 			state.cartItems = deleteFromCart(state.cartItems, action.payload);
 		},
-		toggleCartOpen: (state: CartState, action: any) => {
+		toggleCartOpen: (state: CartState, action: PayloadAction<boolean>) => {
 			state.isCartOpen = action.payload;
 		}
 	}

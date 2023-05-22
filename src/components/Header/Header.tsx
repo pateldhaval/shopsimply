@@ -18,7 +18,7 @@ export const Header: React.FC<Props> = (props) => {
 	const isCartOpen = useSelector(selectIsCartOpen);
 
 	const handleCartOpen = () => {
-		dispatch(toggleCartOpen(!isCartOpen as any));
+		dispatch(toggleCartOpen(!isCartOpen));
 	};
 
 	const handleOnSignOut = () => {

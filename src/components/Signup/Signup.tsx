@@ -30,7 +30,7 @@ export const Signup: React.FC<Props> = (props) => {
 		}
 
 		try {
-			dispatch(setSignUpStart({ email, password, displayName } as any));
+			dispatch(setSignUpStart({ email, password, displayName }));
 			// console.log('User created successfully.');
 
 			// Reset from

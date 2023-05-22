@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { Product } from '@/app/types';
+import { CartProduct, Product } from '@/app/types';
 import { Button } from '@/components/Button';
 import { addItemToCart } from '@/store/cart/cart.slice';
 
@@ -12,7 +12,8 @@ export const ProductCard: React.FC<Props> = (props) => {
 	const dispatch = useDispatch();
 	const { name, imageUrl, price } = props.product;
 
-	const handleAddToCart = () => dispatch(addItemToCart(props.product as any));
+	const handleAddToCart = () =>
+		dispatch(addItemToCart(props.product as CartProduct));
 
 	return (
 		<div

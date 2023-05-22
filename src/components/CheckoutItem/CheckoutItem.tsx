@@ -17,11 +17,9 @@ export const CheckoutItem: React.FC<Props> = (props) => {
 
 	const dispatch = useDispatch();
 
-	const handleAddToCart = () => dispatch(addItemToCart(cartItem as any));
-	const handleRemoveFromCart = () =>
-		dispatch(removeItemWithZeroQty(cartItem as any));
-	const handleDeleteFromCart = () =>
-		dispatch(deleteItemFromCart(cartItem as any));
+	const handleAddToCart = () => dispatch(addItemToCart(cartItem));
+	const handleRemoveFromCart = () => dispatch(removeItemWithZeroQty(cartItem));
+	const handleDeleteFromCart = () => dispatch(deleteItemFromCart(cartItem));
 
 	return (
 		<>

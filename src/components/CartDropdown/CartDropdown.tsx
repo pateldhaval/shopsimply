@@ -17,7 +17,7 @@ export const CartDropdown: React.FC<Props> = (props) => {
 
 	const handleGoToCheckout = () => {
 		navigate('checkout');
-		dispatch(toggleCartOpen(false as any));
+		dispatch(toggleCartOpen(false));
 	};
 
 	return (

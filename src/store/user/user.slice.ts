@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { Profile } from '@/app/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { UserState } from './user.types';
 
@@ -12,31 +13,29 @@ const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		checkAuthUser(state: UserState) {
-			// state.loading = true;
-		},
+		checkAuthUser() {},
 		setGoogleSignInStart(state: UserState) {
 			state.loading = true;
 			state.error = null;
 		},
-		setSignInStart(state: UserState, action: any) {
+		setSignInStart(state: UserState, action: PayloadAction<any>) {
 			state.loading = true;
 			state.error = null;
 		},
-		setAuthFailed(state: UserState, action: any) {
+		setAuthFailed(state: UserState, action: PayloadAction<string>) {
 			state.loading = false;
 			state.error = action.payload;
 		},
-		setSignInSuccess(state: UserState, action: any) {
+		setSignInSuccess(state: UserState, action: PayloadAction<Profile>) {
 			state.loading = false;
 			state.profile = action.payload;
 			state.error = null;
 		},
-		setSignUpStart(state: UserState, action: any) {
+		setSignUpStart(state: UserState, action: PayloadAction<any>) {
 			state.loading = true;
 			state.error = null;
 		},
-		setSignUpSuccess(state: UserState, action: any) {
+		setSignUpSuccess(state: UserState) {
 			state.loading = false;
 		},
 		setSignOutStart(state: UserState) {
