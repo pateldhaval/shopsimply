@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 
-import { CartProduct, Product } from '@/app/types';
 import { Button } from '@/components/ui';
 import { addItemToCart } from '@/store/cart/cart.slice';
+import { CartProduct, Product } from '@/types/shop.type';
 
 interface Props {
 	product: Product;

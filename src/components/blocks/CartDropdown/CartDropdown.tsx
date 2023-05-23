@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { CartProduct } from '@/app/types';
 import { CartItem } from '@/components/blocks';
 import { Button } from '@/components/ui';
 import { selectCartAmount, selectCartItems } from '@/store/cart/cart.selector';
 import { toggleCartOpen } from '@/store/cart/cart.slice';
+import { CartProduct } from '@/types/shop.type';
 
 interface Props {}
 

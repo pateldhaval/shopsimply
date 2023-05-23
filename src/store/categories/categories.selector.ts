@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
-import { Category } from '@/app/types';
+import { Category } from '@/types/shop.type';
 
-import { RootState } from '../redux.types';
+import { RootState } from '../redux.type';
 
 // Initial data access from state
 const selectCategoriesState = (state: RootState) => state.categories;

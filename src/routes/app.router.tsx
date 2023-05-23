@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Layout from '@/app/Layout';
+import { Layout } from '@/components/blocks';
 import { Categories, CheckoutList, Signin, Signup } from '@/components/pages';
 
 import ShopRouter from './shop.router';

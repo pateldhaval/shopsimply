@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import { Product } from '@/app/types';
 import { ProductCard } from '@/components/blocks';
 import { SectionTitle } from '@/components/ui';
+import { Product } from '@/types/shop.type';
 
 interface Props {
 	title: string;

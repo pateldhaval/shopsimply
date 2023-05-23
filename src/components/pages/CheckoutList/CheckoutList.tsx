@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 
-import { CartProduct } from '@/app/types';
 import { CheckoutItem } from '@/components/blocks';
 import { Section, SectionTitle } from '@/components/ui';
 import { selectCartAmount, selectCartItems } from '@/store/cart/cart.selector';
+import { CartProduct } from '@/types/shop.type';
 
 interface Props {}
 

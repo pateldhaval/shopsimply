@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 
-import { CartProduct } from '@/app/types';
 import { addItemToCart, deleteItemFromCart, removeItemWithZeroQty } from '@/store/cart/cart.slice';
+import { CartProduct } from '@/types/shop.type';
 
 interface Props {
 	cartItem: CartProduct;

@@ -1,7 +1,7 @@
-import { Profile } from '@/app/types';
+import { Profile } from '@/types/user.type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AuthState } from './auth.types';
+import { AuthState } from './auth.type';
 
 const initialState: AuthState = {
 	loading: false,

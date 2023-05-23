@@ -1,4 +1,4 @@
-import { Profile } from '@/app/types';
+import { Profile } from '@/types/user.type';
 
 export interface AuthState {
 	loading: boolean;

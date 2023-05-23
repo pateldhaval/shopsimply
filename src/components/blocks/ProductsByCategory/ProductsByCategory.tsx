@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { Product } from '@/app/types';
 import { ProductCard } from '@/components/blocks';
 import { Section, SectionTitle } from '@/components/ui';
 import { selectCategoriesMap } from '@/store/categories/categories.selector';
+import { Product } from '@/types/shop.type';
 
 interface Props {}
 

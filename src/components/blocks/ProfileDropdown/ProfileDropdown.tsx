@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 
-import { Profile } from '@/app/types';
 import { Button } from '@/components/ui';
 import { setSignOutStart } from '@/store/auth/auth.slice';
+import { Profile } from '@/types/user.type';
 
 interface Props {
 	profile: Profile;

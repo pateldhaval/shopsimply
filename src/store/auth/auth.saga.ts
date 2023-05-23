@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-import { FireUser } from '@/app/types';
+import { FireUser } from '@/types/user.type';
 import {
 	createProfileFromAuth,
 	getAuthUser,

@@ -1,4 +1,4 @@
-import { CartProduct } from '@/app/types';
+import { CartProduct } from '@/types/shop.type';
 
 export interface CartState {
 	cartItems: CartProduct[];

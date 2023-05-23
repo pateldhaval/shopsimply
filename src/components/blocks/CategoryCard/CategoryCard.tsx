@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { Category } from '@/app/types';
+import { Category } from '@/types/shop.type';
 
 interface Props {
 	category: Category;

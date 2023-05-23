@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 
-import { CartProduct } from '@/app/types';
+import { CartProduct } from '@/types/shop.type';
 
-import { RootState } from '../redux.types';
-import { CartState } from './cart.types';
+import { RootState } from '../redux.type';
+import { CartState } from './cart.type';
 
 // Initial data access from state
 const selectCartState = (state: RootState) => state.cart;

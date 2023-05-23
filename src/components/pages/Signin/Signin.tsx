@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { SignInFormFields } from '@/app/types';
 import { Button, Input, Section } from '@/components/ui';
 import { selectError, selectLoading, selectLoadingGoogle, selectProfile } from '@/store/auth/auth.selector';
 import { setGoogleSigninStart, setSigninStart } from '@/store/auth/auth.slice';
+import { SignInFormFields } from '@/types/user.type';
 
 const initialFormFields: SignInFormFields = {
 	email: '',

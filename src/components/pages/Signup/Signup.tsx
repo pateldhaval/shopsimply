@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { SignUpFormFields } from '@/app/types';
 import { Button, Input, Section } from '@/components/ui';
 import { selectProfile } from '@/store/auth/auth.selector';
 import { selectError, selectLoading } from '@/store/signup/signup.selector';
 import { setSignupStart } from '@/store/signup/signup.slice';
+import { SignUpFormFields } from '@/types/user.type';
 
 const initialFormFields: SignUpFormFields = {
 	displayName: '',

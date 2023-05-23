@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-import { RootState } from '../redux.types';
-import { SignupState } from './signup.types';
+import { RootState } from '../redux.type';
+import { SignupState } from './signup.type';
 
 export const selectSignupState = (state: RootState) => state.signup;
 

@@ -1,7 +1,7 @@
-import { Category } from '@/app/types';
+import { Category } from '@/types/shop.type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { CategoriesState } from './categories.types';
+import { CategoriesState } from './categories.type';
 
 const initialState: CategoriesState = {
 	loading: false,
