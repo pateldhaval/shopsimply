@@ -1,9 +1,12 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { SignUpFormFields } from '@/app/types';
 import { Button, Input, Section } from '@/components/ui';
-import { setSignUpStart } from '@/store/user/user.slice';
+import { selectProfile } from '@/store/auth/auth.selector';
+import { selectError, selectLoading } from '@/store/signup/signup.selector';
+import { setSignupStart } from '@/store/signup/signup.slice';
 
 const initialFormFields: SignUpFormFields = {
 	displayName: '',
@@ -16,8 +19,35 @@ interface Props {}
 
 export const Signup: React.FC<Props> = (props) => {
 	const dispatch = useDispatch();
+	const isLoading = useSelector(selectLoading);
+	const error = useSelector(selectError);
+	const user = useSelector(selectProfile);
+	const navigate = useNavigate();
 	const [formFields, setFormFields] = useState(initialFormFields);
 	const { displayName, email, password, confirmPassword } = formFields;
+
+	useEffect(() => {
+		if (user) {
+			handleReset();
+
+			if (user.email) {
+				navigate('/');
+			} else {
+				// [Full refresh to get all information]
+				window.location.reload();
+			}
+		}
+		if (error) {
+			switch (error.code) {
+				case 'auth/email-already-in-use':
+					alert('Oops!! Email is already in use');
+					break;
+				default:
+					console.log(error);
+					break;
+			}
+		}
+	}, [user, error]);
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -27,19 +57,7 @@ export const Signup: React.FC<Props> = (props) => {
 			return;
 		}
 
-		try {
-			dispatch(setSignUpStart({ email, password, displayName }));
-			// console.log('User created successfully.');
-
-			// Reset from
-			// handleReset();
-		} catch (error: any) {
-			// TODO: need to handle this other way around
-			if (error.code === 'auth/email-already-in-use') {
-				alert('Oops!! Email is already in use');
-			}
-			console.log(error);
-		}
+		dispatch(setSignupStart({ email, password, displayName }));
 	};
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,8 +90,14 @@ export const Signup: React.FC<Props> = (props) => {
 					value={confirmPassword}
 					onChange={handleChange}
 				/>
-				<div>
-					<Button>Submit</Button>
+				<div className='space-x-4'>
+					<Button>{isLoading ? 'Loading...' : 'Submit'}</Button>
+					<span>
+						Already have an account?{' '}
+						<Link to={'/auth'} className='underline'>
+							Signin
+						</Link>
+					</span>
 				</div>
 			</form>
 		</Section>

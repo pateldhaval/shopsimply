@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import AppRouter from '@/routes/app.router';
 import { fetchCategoriesStart } from '@/store/categories/categories.slice';
-import { checkAuthUser } from '@/store/user/user.slice';
+
+import { checkAuthUser } from './store/auth/auth.slice';
 
 const App = () => {
 	const dispatch = useDispatch();

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { SignInFormFields } from '@/app/types';
 import { Button, Input, Section } from '@/components/ui';
-import { selectAuthError, selectAuthLoading, selectProfile } from '@/store/user/user.selector';
-import { setGoogleSignInStart, setSignInStart } from '@/store/user/user.slice';
+import { selectError, selectLoading, selectLoadingGoogle, selectProfile } from '@/store/auth/auth.selector';
+import { setGoogleSigninStart, setSigninStart } from '@/store/auth/auth.slice';
 
 const initialFormFields: SignInFormFields = {
 	email: '',
@@ -16,8 +17,9 @@ interface Props {}
 
 export const Signin: React.FC<Props> = (props) => {
 	const dispatch = useDispatch();
-	const isLoading = useSelector(selectAuthLoading);
-	const error = useSelector(selectAuthError);
+	const isLoading = useSelector(selectLoading);
+	const isLoadingGoogle = useSelector(selectLoadingGoogle);
+	const error = useSelector(selectError);
 	const user = useSelector(selectProfile);
 	const [formFields, setFormFields] = useState(initialFormFields);
 	const navigate = useNavigate();
@@ -36,6 +38,9 @@ export const Signin: React.FC<Props> = (props) => {
 				case 'auth/wrong-password':
 					alert('Oops!! Password is incorrect');
 					break;
+				case 'auth/popup-closed-by-user':
+					alert('Oops!! Popup closed by user without signin');
+					break;
 				default:
 					console.log(error);
 					break;
@@ -43,26 +48,13 @@ export const Signin: React.FC<Props> = (props) => {
 		}
 	}, [user, error]);
 
-	const handleSignInWithGoogle = () => {
-		try {
-			dispatch(setGoogleSignInStart());
-			console.log('Logged in successfully.');
-		} catch (error: any) {
-			// TODO: need to handle this other way around
-			switch (error.code) {
-				case 'auth/popup-closed-by-user':
-					console.log('Oops!! Popup closed by user without login');
-					break;
-				default:
-					console.log(error);
-					break;
-			}
-		}
+	const handleSigninWithGoogle = () => {
+		dispatch(setGoogleSigninStart());
 	};
 
-	const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleSignin = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		dispatch(setSignInStart({ email, password } as any));
+		dispatch(setSigninStart({ email, password } as any));
 	};
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,13 +68,21 @@ export const Signin: React.FC<Props> = (props) => {
 
 	return (
 		<Section>
-			<form onSubmit={handleSignIn} className='space-y-4'>
+			<form onSubmit={handleSignin} className='space-y-4'>
 				<Input label='Email' type='email' name='email' required value={email} onChange={handleChange} />
 				<Input label='Password' type='password' name='password' required value={password} onChange={handleChange} />
 				<div className='space-x-4'>
 					<Button>{isLoading ? 'Loading...' : 'Submit'}</Button>
-					<Button type='button' onClick={handleSignInWithGoogle}>
-						SignIn with Google
+					<span>
+						Don't have an account?{' '}
+						<Link to={'/register'} className='underline'>
+							Signup
+						</Link>
+					</span>
+				</div>
+				<div>
+					<Button type='button' onClick={handleSigninWithGoogle}>
+						{isLoadingGoogle ? 'Loading...' : 'SignIn with Google'}
 					</Button>
 				</div>
 			</form>

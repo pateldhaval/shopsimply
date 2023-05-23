@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { CartDropdown, ProfileDropdown } from '@/components/blocks';
+import { selectProfile } from '@/store/auth/auth.selector';
 import { selectCartQty, selectIsCartOpen } from '@/store/cart/cart.selector';
 import { toggleCartOpen } from '@/store/cart/cart.slice';
-import { selectProfile } from '@/store/user/user.selector';
 
 interface Props {}
 
