@@ -1,19 +1,19 @@
 import { Route, Routes } from 'react-router-dom';
 
 import Layout from '@/app/Layout';
-import Auth from '@/pages/Auth';
-import Checkout from '@/pages/Checkout';
-import Home from '@/pages/Home';
-import Shop from '@/pages/Shop';
+import { Categories, CheckoutList, Signin, Signup } from '@/components/pages';
+
+import ShopRouter from './shop.router';
 
 const AppRouter = () => {
 	return (
 		<Routes>
 			<Route path='/' element={<Layout />}>
-				<Route index element={<Home />} />
-				<Route path='auth' element={<Auth />} />
-				<Route path='shop/*' element={<Shop />} />
-				<Route path='checkout' element={<Checkout />} />
+				<Route index element={<Categories />} />
+				<Route path='auth' element={<Signin />} />
+				<Route path='register' element={<Signup />} />
+				<Route path='shop/*' element={<ShopRouter />} />
+				<Route path='checkout' element={<CheckoutList />} />
 			</Route>
 		</Routes>
 	);

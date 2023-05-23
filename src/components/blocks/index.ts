@@ -1,0 +1,11 @@
+export { Header } from './Header/Header';
+export { Footer } from './Footer/Footer';
+export { CartDropdown } from './CartDropdown/CartDropdown';
+export { CartItem } from './CartItem/CartItem';
+export { CategoriesPreview } from './CategoriesPreview/CategoriesPreview';
+export { CategoryPreviewItem } from './CategoryPreviewItem/CategoryPreviewItem';
+export { CategoryCard } from './CategoryCard/CategoryCard';
+export { CheckoutItem } from './CheckoutItem/CheckoutItem';
+export { ProductCard } from './ProductCard/ProductCard';
+export { ProductsByCategory } from './ProductsByCategory/ProductsByCategory';
+export { ProfileDropdown } from './ProfileDropdown/ProfileDropdown';
