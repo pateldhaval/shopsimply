@@ -1,7 +1,5 @@
-import { useDispatch } from 'react-redux';
-
 import { Button } from '@/components/ui';
-import { setSignOutStart } from '@/store/auth/auth.slice';
+import { useSignOutMutation } from '@/store/auth/auth.api';
 import { Profile } from '@/types/user.type';
 
 interface Props {
@@ -11,10 +9,11 @@ interface Props {
 
 export const ProfileDropdown: React.FC<Props> = (props) => {
 	const { displayName } = props.profile;
-	const dispatch = useDispatch();
 
-	const handleSignOut = () => {
-		dispatch(setSignOutStart());
+	const [signOut, { isLoading }] = useSignOutMutation();
+
+	const handleSignOut = async () => {
+		await signOut();
 		props.onSignOut();
 	};
 
@@ -23,7 +22,7 @@ export const ProfileDropdown: React.FC<Props> = (props) => {
 			<div className='pb-3'>{displayName ? displayName : 'User'}</div>
 			<div className='pt-4 border-t'>
 				<Button block onClick={handleSignOut}>
-					Sign Out
+					{isLoading ? 'Loading...' : 'Sign Out'}
 				</Button>
 			</div>
 		</div>

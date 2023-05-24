@@ -1,11 +1,10 @@
+import { FirebaseError } from 'firebase/app';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { Button, Input, Section } from '@/components/ui';
-import { selectError, selectLoading, selectLoadingGoogle, selectProfile } from '@/store/auth/auth.selector';
-import { setGoogleSigninStart, setSigninStart } from '@/store/auth/auth.slice';
+import { useGetUserProfileQuery, useSigninMutation, useSigninWithGoogleMutation } from '@/store/auth/auth.api';
 import { SignInFormFields } from '@/types/user.type';
 
 const initialFormFields: SignInFormFields = {
@@ -16,21 +15,43 @@ const initialFormFields: SignInFormFields = {
 interface Props {}
 
 export const Signin: React.FC<Props> = (props) => {
-	const dispatch = useDispatch();
-	const isLoading = useSelector(selectLoading);
-	const isLoadingGoogle = useSelector(selectLoadingGoogle);
-	const error = useSelector(selectError);
-	const user = useSelector(selectProfile);
-	const [formFields, setFormFields] = useState(initialFormFields);
 	const navigate = useNavigate();
+	const [formFields, setFormFields] = useState(initialFormFields);
 	const { email, password } = formFields;
 
+	const { data: profile } = useGetUserProfileQuery(undefined, {
+		selectFromResult: ({ data, isLoading }) => ({ data, isLoading })
+	});
+
+	const [signinWithGoogle, { isLoading: isLoadingGoogle, isError: isErrorGoogle, error: errorGoogle }] =
+		useSigninWithGoogleMutation();
+
+	const [signin, { isLoading: isLoadingSignin, isError: isErrorSignin, error: errorSignin }] = useSigninMutation();
+
 	useEffect(() => {
-		if (user) {
+		if (profile) {
 			handleReset();
 			navigate('/');
 		}
-		if (error) {
+	}, [profile]);
+
+	useEffect(() => {
+		if (isErrorGoogle) {
+			const error = errorGoogle as FirebaseError;
+			switch (error.code) {
+				case 'auth/popup-closed-by-user':
+					alert('Oops!! Popup closed by user without signin');
+					break;
+				default:
+					console.log(errorGoogle);
+					break;
+			}
+		}
+	}, [errorGoogle]);
+
+	useEffect(() => {
+		if (isErrorSignin) {
+			const error = errorSignin as FirebaseError;
 			switch (error.code) {
 				case 'auth/user-not-found':
 					alert('Oops!! User not found');
@@ -38,23 +59,20 @@ export const Signin: React.FC<Props> = (props) => {
 				case 'auth/wrong-password':
 					alert('Oops!! Password is incorrect');
 					break;
-				case 'auth/popup-closed-by-user':
-					alert('Oops!! Popup closed by user without signin');
-					break;
 				default:
-					console.log(error);
+					console.log(errorGoogle);
 					break;
 			}
 		}
-	}, [user, error]);
+	}, [isErrorSignin]);
 
-	const handleSigninWithGoogle = () => {
-		dispatch(setGoogleSigninStart());
+	const handleSigninWithGoogle = async () => {
+		await signinWithGoogle();
 	};
 
 	const handleSignin = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		dispatch(setSigninStart({ email, password } as any));
+		signin({ email, password });
 	};
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +90,7 @@ export const Signin: React.FC<Props> = (props) => {
 				<Input label='Email' type='email' name='email' required value={email} onChange={handleChange} />
 				<Input label='Password' type='password' name='password' required value={password} onChange={handleChange} />
 				<div className='space-x-4'>
-					<Button>{isLoading ? 'Loading...' : 'Submit'}</Button>
+					<Button>{isLoadingSignin ? 'Loading...' : 'Submit'}</Button>
 					<span>
 						Don't have an account?{' '}
 						<Link to={'/register'} className='underline'>

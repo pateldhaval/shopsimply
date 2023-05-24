@@ -7,6 +7,7 @@ import createSagaMiddleware from 'redux-saga';
 // import { applyMiddleware, legacy_createStore as createStore } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 
+import { authApi } from './auth/auth.api';
 import { categoriesApi } from './categories/categories.api';
 import { rootSaga } from './root-saga';
 import { rootReducer } from './root.reducer';
@@ -41,7 +42,8 @@ const sagaMiddleware = createSagaMiddleware();
 const middleware = [
 	// [Saga]
 	sagaMiddleware,
-	categoriesApi.middleware
+	categoriesApi.middleware,
+	authApi.middleware
 ];
 
 // ====================================================

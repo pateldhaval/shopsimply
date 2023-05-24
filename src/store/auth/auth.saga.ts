@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-import { FireUser } from '@/types/user.type';
+import { FireUser, Profile } from '@/types/user.type';
 import {
 	createProfileFromAuth,
 	getAuthUser,
@@ -23,7 +23,7 @@ export function* getUserProfile(user: FireUser, additionalInfo = {}): any {
 	try {
 		const profileSnapshot = yield call(createProfileFromAuth, user, additionalInfo);
 		// console.log(profileSnapshot.data());
-		const profile = { id: profileSnapshot.id, ...profileSnapshot.data() };
+		const profile = { id: profileSnapshot.id, ...profileSnapshot.data() } as Profile;
 		yield put(setSigninSuccess(profile));
 	} catch (error: any) {
 		yield put(setSigninFailed(error));

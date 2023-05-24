@@ -6,10 +6,10 @@
 	"prettier.trailingComma": "none",
 	"prettier.singleQuote": true,
 	"prettier.jsxSingleQuote": true,
+	"prettier.printWidth": 120,
 	"importSorter.generalConfiguration.sortOnBeforeSave": true,
 	"importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimit",
 	"importSorter.importStringConfiguration.tabSize": 2,
 	"importSorter.importStringConfiguration.tabType": "tab",
-	"importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 80,
-	"prettier.printWidth": 120
+	"importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 120
 }
