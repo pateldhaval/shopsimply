@@ -15,7 +15,7 @@ export const CategoryPreviewItem: React.FC<Props> = (props) => {
 	return (
 		<div>
 			<SectionTitle>
-				<Link to={`/shop/${title}`}>{title.toUpperCase()}</Link>
+				<Link to={`/shop/${title.toLowerCase()}`}>{title.toUpperCase()}</Link>
 			</SectionTitle>
 			<div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10'>
 				{products

@@ -5,6 +5,7 @@ import AppRouter from '@/routes/app.router';
 import { fetchCategoriesStart } from '@/store/categories/categories.slice';
 
 import { checkAuthUser } from './store/auth/auth.slice';
+import { useCategoriesQuery } from './store/categories/categories.api';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -14,10 +15,17 @@ const App = () => {
 		dispatch(checkAuthUser());
 	}, []);
 
+	// =============================================
 	// [Get categories data]
-	useEffect(() => {
-		dispatch(fetchCategoriesStart());
-	}, []);
+
+	// [Using RTK Query]
+	useCategoriesQuery();
+
+	// [Using Saga]
+	// useEffect(() => {
+	// 	dispatch(fetchCategoriesStart());
+	// }, []);
+	// =============================================
 
 	return <AppRouter />;
 };

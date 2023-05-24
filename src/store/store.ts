@@ -7,6 +7,7 @@ import createSagaMiddleware from 'redux-saga';
 // import { applyMiddleware, legacy_createStore as createStore } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 
+import { categoriesApi } from './categories/categories.api';
 import { rootSaga } from './root-saga';
 import { rootReducer } from './root.reducer';
 
@@ -39,7 +40,8 @@ const sagaMiddleware = createSagaMiddleware();
 // [list of middleware to use with store]
 const middleware = [
 	// [Saga]
-	sagaMiddleware
+	sagaMiddleware,
+	categoriesApi.middleware
 ];
 
 // ====================================================
