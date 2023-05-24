@@ -10,7 +10,10 @@ const selectCategoriesState = (state: RootState) => state.categories;
 export const selectCategoriesLoading = createSelector([selectCategoriesState], (categories) => categories.loading);
 
 // Memoize (Cache) categoriesData from state
-export const selectCategoriesData = createSelector([selectCategoriesState], (categories) => categories.categoriesData);
+export const selectCategoriesData = createSelector(
+	[selectCategoriesState],
+	(categories) => categories.categoriesData as Category[]
+);
 
 // Memoize (Cache) categoriesMap from categoriesData
 export const selectCategoriesMap = createSelector([selectCategoriesData], (categoriesDataSlice) =>
