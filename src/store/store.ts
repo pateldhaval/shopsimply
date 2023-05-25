@@ -1,15 +1,10 @@
-// import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-// import thunk from 'redux-thunk';
-import createSagaMiddleware from 'redux-saga';
 
-// import { applyMiddleware, legacy_createStore as createStore } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { authApi } from './auth/auth.api';
 import { categoriesApi } from './categories/categories.api';
-import { rootSaga } from './root-saga';
 import { rootReducer } from './root.reducer';
 
 // ====================================================
@@ -35,16 +30,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 // [Middleware]
 // ====================================================
 
-// [Init saga middleware]
-const sagaMiddleware = createSagaMiddleware();
-
 // [list of middleware to use with store]
-const middleware = [
-	// [Saga]
-	sagaMiddleware,
-	categoriesApi.middleware,
-	authApi.middleware
-];
+const middlewares = [categoriesApi.middleware, authApi.middleware];
 
 // ====================================================
 // [Store with persist]
@@ -58,15 +45,8 @@ export const store = configureStore({
 			serializableCheck: false
 		})
 			// [Concat out own middleware]
-			.concat(middleware)
+			.concat(middlewares)
 });
-// export const store = createStore(
-// 	persistedReducer,
-// 	composeWithDevTools(applyMiddleware(...middleware))
-// );
-
-// [Tell saga middleware to run root saga]
-sagaMiddleware.run(rootSaga);
 
 // [Persisted store derived from store]
 export const persistor = persistStore(store);
