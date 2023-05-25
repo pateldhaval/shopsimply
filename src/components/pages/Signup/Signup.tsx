@@ -1,11 +1,9 @@
+import { FirebaseError } from 'firebase/app';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Button, Input, Section } from '@/components/ui';
-import { selectProfile } from '@/store/auth/auth.selector';
-import { selectError, selectLoading } from '@/store/signup/signup.selector';
-import { setSignupStart } from '@/store/signup/signup.slice';
+import { useGetUserProfileQuery, useSignupMutation } from '@/store/auth/auth.api';
 import { SignUpFormFields } from '@/types/user.type';
 
 const initialFormFields: SignUpFormFields = {
@@ -18,25 +16,31 @@ const initialFormFields: SignUpFormFields = {
 interface Props {}
 
 export const Signup: React.FC<Props> = (props) => {
-	const dispatch = useDispatch();
-	const isLoading = useSelector(selectLoading);
-	const error = useSelector(selectError);
-	const user = useSelector(selectProfile);
 	const navigate = useNavigate();
 	const [formFields, setFormFields] = useState(initialFormFields);
 	const { displayName, email, password, confirmPassword } = formFields;
 
+	const [signup, { isLoading, error: errorSignup }] = useSignupMutation();
+
+	const { data: profile } = useGetUserProfileQuery(undefined, {
+		selectFromResult: ({ data, isLoading }) => ({ data, isLoading })
+	});
+
 	useEffect(() => {
-		if (user) {
+		if (profile) {
 			handleReset();
 
-			if (user.email) {
+			if (profile.email) {
 				navigate('/');
 			} else {
 				// [Full refresh to get all information]
 				window.location.reload();
 			}
 		}
+	}, [profile]);
+
+	useEffect(() => {
+		const error = errorSignup as FirebaseError;
 		if (error) {
 			switch (error.code) {
 				case 'auth/email-already-in-use':
@@ -47,7 +51,7 @@ export const Signup: React.FC<Props> = (props) => {
 					break;
 			}
 		}
-	}, [user, error]);
+	}, [errorSignup]);
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -57,7 +61,7 @@ export const Signup: React.FC<Props> = (props) => {
 			return;
 		}
 
-		dispatch(setSignupStart({ email, password, displayName }));
+		signup({ email, password, displayName });
 	};
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

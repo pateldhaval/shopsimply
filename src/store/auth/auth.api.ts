@@ -1,19 +1,13 @@
-import { FireUser, Profile, SignInFormFields } from '@/types/user.type';
+import { FireUser, Profile, SignInFormFields, SignUpFormFields } from '@/types/user.type';
 import {
-	createProfileFromAuth,
+	createAuthUserWithEmailAndPassword,
 	getAuthUser,
+	getUserProfileFromAuth,
 	signInAuthUserWithEmailAndPassword,
 	signInWithGooglePopup,
 	signOutAuthUser
 } from '@/utils/firebase/firebase.util';
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
-
-// [Fetch profile from auth user]
-const getUserProfileFromAuth = async (user: FireUser, additionalInfo = {}): Promise<Profile> => {
-	const profileSnapshot = await createProfileFromAuth(user, additionalInfo);
-	const profile = { id: profileSnapshot?.id, ...profileSnapshot?.data() } as Profile;
-	return profile;
-};
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
@@ -67,6 +61,21 @@ export const authApi = createApi({
 				}
 			}
 		}),
+		signup: builder.mutation<Profile | null, SignUpFormFields>({
+			invalidatesTags: ['Profile'],
+			queryFn: async (fields) => {
+				try {
+					const authUser = await createAuthUserWithEmailAndPassword(fields.email, fields.password);
+					if (!authUser?.user) return { data: null };
+
+					const additionalInfo = { displayName: fields.displayName };
+					const profile = await getUserProfileFromAuth(authUser?.user, additionalInfo);
+					return { data: profile };
+				} catch (error) {
+					return { error };
+				}
+			}
+		}),
 		signOut: builder.mutation<any, void>({
 			invalidatesTags: ['Profile'],
 			queryFn: async () => {
@@ -81,4 +90,10 @@ export const authApi = createApi({
 	})
 });
 
-export const { useGetUserProfileQuery, useSigninMutation, useSigninWithGoogleMutation, useSignOutMutation } = authApi;
+export const {
+	useGetUserProfileQuery,
+	useSigninMutation,
+	useSigninWithGoogleMutation,
+	useSignupMutation,
+	useSignOutMutation
+} = authApi;

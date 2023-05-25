@@ -9,6 +9,8 @@ import {
 } from 'firebase/auth';
 import { collection, doc, getDoc, getDocs, query, setDoc, writeBatch } from 'firebase/firestore';
 
+import { Profile } from '@/types/user.type';
+
 import { auth, firestore, googleProvider } from './firebase.config';
 
 // =================================================================================
@@ -89,6 +91,14 @@ export const getAuthUser = () => {
 // =================================================================================
 // Other firestore utilities
 // =================================================================================
+
+// [Fetch profile from auth user]
+export const getUserProfileFromAuth = async (user: User, additionalInfo = {}): Promise<Profile> => {
+	const profileSnapshot = await createProfileFromAuth(user, additionalInfo);
+	const profile = { id: profileSnapshot?.id, ...profileSnapshot?.data() } as Profile;
+	return profile;
+};
+
 export const addCollectionAndDocuments = async (collectionKey: string, objectsToAdd: any, documentKey: string) => {
 	// Get the reference to the collection
 	const collectionRef = collection(firestore, collectionKey);
